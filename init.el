@@ -1,6 +1,19 @@
 (tool-bar-mode -1)
-(toggle-scroll-bar -1)
-;(setq inhibit-startup-screen t)
+(scroll-bar-mode -1)
+(if (display-graphic-p)
+    (progn  ;; has graphical system
+      (desktop-save-mode 1))
+  (progn  ;; isatty
+    (menu-bar-mode -1)))
+
+(setq mac-option-modifier 'meta
+      mac-right-option-modifier nil
+      mac-command-modifier 'super)
+
+(global-set-key (kbd "s-c") 'kill-ring-save)
+(global-set-key (kbd "s-x") 'kill-region)
+(global-set-key (kbd "s-v") 'yank)
+(global-set-key (kbd "s-z") 'undo)
 
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -17,11 +30,14 @@
 (setq package-list '(dash
                      enh-ruby-mode
                      yaml-mode
+                     web-mode
+                     fish-mode
                      helm-projectile
                      magit
                      nyan-mode
                      neotree
                      anzu
+                     window-numbering
                      smartparens))
 
 ; list the repositories containing them
@@ -47,7 +63,6 @@
 
 (projectile-global-mode)
 (setq projectile-enable-caching t)
-(setq projectile-switch-project-action 'neotree-projectile-action)
 
 (require 'helm-config)
 (helm-mode 1)
@@ -63,18 +78,56 @@
 ;(add-hook 'kill-emacs-hook #'(lambda () (and (file-exists-p "/tmp/helm-cfg.el") (delete-file "/tmp/helm-cfg.el"))))
 
 
-
 (require 'helm-projectile)
 (helm-projectile-on)
 
 (add-to-list 'auto-mode-alist
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
 
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+
+
 
 (require 'smartparens-config)
+(require 'smartparens-html)
 (add-hook 'prog-mode-hook #'smartparens-mode)
+(add-hook 'prog-mode-hook #'show-smartparens-mode)
+
+(require 'web-mode)
+
+(defun my-web-mode-hook ()
+  (setq web-mode-enable-auto-pairing nil)  ; to be compatible with smartparens
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
+(defun sp-web-mode-is-code-context (id action context)
+  (and (eq action 'insert)
+       (not (or (get-text-property (point) 'part-side)
+                (get-text-property (point) 'block-side)))))
+
+;; end smartparens-web-mode support
+
+
 
 (global-anzu-mode +1)
+
+(setq make-backup-files nil)
+(setq-default indent-tabs-mode nil)
+(setq js-indent-level 2)
+(setq js2-basic-offset 2)
+(setq css-indent-offset 2)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(global-auto-revert-mode t)
+(nyan-mode)
+
+(window-numbering-mode)
+(defface window-numbering-face '((default :weight extra-bold :foreground "RoyalBlue1"))
+  "Face for window number in the mode-line.")
+
 
 
 (custom-set-variables
@@ -92,12 +145,15 @@
     ("06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
  '(enh-ruby-check-syntax nil)
+ '(enh-ruby-hanging-brace-deep-indent-level 2)
  '(fci-rule-color "#373b41")
  '(midnight-delay 10800)
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+ '(send-mail-function (quote mailclient-send-it))
+ '(sp-base-key-bindings (quote sp))
  '(tool-bar-mode nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
@@ -127,18 +183,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Source Code Pro" :foundry "nil" :slant normal :weight normal :height 120 :width normal))))
- '(highlight ((t (:background "gray20"))))
- '(mouse ((t nil))))
-
-
-(setq make-backup-files nil)
-(setq-default indent-tabs-mode nil)
-(setq js-indent-level 2)
-(setq js2-basic-offset 2)
-(setq css-indent-offset 2)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(global-auto-revert-mode t)
-(desktop-save-mode 1)
-(nyan-mode)
+ '(highlight ((t (:background "gray20")))))
