@@ -1,19 +1,30 @@
+;; TOTE – The Only Text Encoding
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-locale-environment "en_US.UTF-8")
+(prefer-coding-system 'utf-8)
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (if (display-graphic-p)
     (progn  ;; has graphical system
-      (desktop-save-mode 1))
-  (progn  ;; isatty
+      (desktop-save-mode 1)
+      (mac-auto-operator-composition-mode))
+  (progn    ;; isatty
     (menu-bar-mode -1)))
 
 (setq mac-option-modifier 'meta
       mac-right-option-modifier nil
       mac-command-modifier 'super)
 
+
 (global-set-key (kbd "s-c") 'kill-ring-save)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
 (global-set-key (kbd "s-z") 'undo)
+(global-set-key (kbd "M-s-t") 'helm-projectile-switch-project)
+(global-set-key (kbd "s-t") 'helm-projectile-find-file)
 
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -30,10 +41,10 @@
 (setq package-list '(dash
                      enh-ruby-mode
                      yaml-mode
+                     json-mode
                      web-mode
                      fish-mode
                      helm-projectile
-                     magit
                      nyan-mode
                      neotree
                      anzu
@@ -75,7 +86,22 @@
 (unless (boundp 'completion-in-region-function)
   (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
   (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
-;(add-hook 'kill-emacs-hook #'(lambda () (and (file-exists-p "/tmp/helm-cfg.el") (delete-file "/tmp/helm-cfg.el"))))
+;;(add-hook 'kill-emacs-hook #'(lambda () (and (file-exists-p "/tmp/helm-cfg.el") (delete-file "/tmp/helm-cfg.el"))))
+
+(defun scroll-half-page-down ()
+  "scroll down half the page"
+  (interactive)
+  (scroll-down (/ (window-body-height) 2))
+  (move-to-window-line nil))
+
+(defun scroll-half-page-up ()
+  "scroll up half the page"
+  (interactive)
+  (scroll-up (/ (window-body-height) 2))
+  (move-to-window-line nil))
+
+(global-set-key [remap scroll-down-command] 'scroll-half-page-down)
+(global-set-key [remap scroll-up-command] 'scroll-half-page-up)
 
 
 (require 'helm-projectile)
@@ -89,7 +115,6 @@
 
 
 (require 'smartparens-config)
-(require 'smartparens-html)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'prog-mode-hook #'show-smartparens-mode)
 
@@ -121,6 +146,7 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+(global-git-commit-mode)
 (global-auto-revert-mode t)
 (nyan-mode)
 
@@ -144,6 +170,7 @@
    (quote
     ("06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
+ '(enh-ruby-add-encoding-comment-on-save nil)
  '(enh-ruby-check-syntax nil)
  '(enh-ruby-hanging-brace-deep-indent-level 2)
  '(fci-rule-color "#373b41")
@@ -151,10 +178,9 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+ '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
- '(sp-base-key-bindings (quote sp))
- '(tool-bar-mode nil)
  '(vc-annotate-background nil)
  '(vc-annotate-color-map
    (quote
@@ -182,5 +208,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "nil" :slant normal :weight normal :height 120 :width normal))))
+ '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
  '(highlight ((t (:background "gray20")))))
