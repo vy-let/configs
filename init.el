@@ -147,7 +147,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (global-git-commit-mode)
-(global-auto-revert-mode t)
+(global-auto-revert-mode 1)
 (nyan-mode)
 
 (window-numbering-mode)
