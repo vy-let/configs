@@ -47,6 +47,7 @@
                      helm-projectile
                      nyan-mode
                      neotree
+                     sublimity
                      anzu
                      window-numbering
                      smartparens))
@@ -114,9 +115,23 @@
 
 
 
+(require 'sublimity)
+(sublimity-mode 1)
+
+(require 'sublimity-scroll)
+(setq sublimity-scroll-weight 10
+      sublimity-scroll-drift-length 3)
+
+(require 'sublimity-map)
+(sublimity-map-set-delay nil)
+
+;; (require 'sublimity-attractive)
+
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'prog-mode-hook #'show-smartparens-mode)
+
+
 
 (require 'web-mode)
 
