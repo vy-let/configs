@@ -12,7 +12,9 @@
       (desktop-save-mode 1)
       (mac-auto-operator-composition-mode))
   (progn    ;; isatty
-    (menu-bar-mode -1)))
+    (menu-bar-mode -1)
+    (xterm-mouse-mode 1)
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))))
 
 (setq mac-option-modifier 'meta
       mac-right-option-modifier nil
