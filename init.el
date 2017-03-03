@@ -75,6 +75,8 @@
 
 
 
+(setq vc-follow-symlinks t)
+
 (projectile-global-mode)
 (setq projectile-enable-caching t)
 
@@ -118,16 +120,14 @@
 
 
 (require 'sublimity)
-(sublimity-mode 1)
+;; (require 'sublimity-attractive)
+;; sublimity-map configured conditionally near end
+;; sublimity-mode enabled thereafter
 
 (require 'sublimity-scroll)
 (setq sublimity-scroll-weight 10
       sublimity-scroll-drift-length 3)
 
-(require 'sublimity-map)
-(sublimity-map-set-delay nil)
-
-;; (require 'sublimity-attractive)
 
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
@@ -165,11 +165,20 @@
 
 (global-git-commit-mode)
 (global-auto-revert-mode 1)
-(nyan-mode)
 
 (window-numbering-mode)
 (defface window-numbering-face '((default :weight extra-bold :foreground "RoyalBlue1"))
   "Face for window number in the mode-line.")
+
+
+
+(if (display-graphic-p)
+    (progn
+      (nyan-mode)
+      (require 'sublimity-map)
+      (sublimity-map-set-delay nil)))
+
+(sublimity-mode 1)
 
 
 
