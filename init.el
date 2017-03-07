@@ -20,7 +20,7 @@
  '(custom-enabled-themes (quote (tomorrow-night)))
  '(custom-safe-themes
    (quote
-    ("06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
+    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
  '(enh-ruby-add-encoding-comment-on-save nil)
  '(enh-ruby-check-syntax nil)
@@ -117,6 +117,7 @@
                      fish-mode
                      git-commit
                      helm-projectile
+                     smart-mode-line  smart-mode-line-powerline-theme
                      nyan-mode
                      neotree
                      anzu
@@ -135,6 +136,14 @@
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+
+
+
+
+(setq powerline-arrow-shape 'curve)
+(setq sml/theme 'powerline)
+(sml/setup)
 
 
 
@@ -230,5 +239,5 @@
 
 (if (display-graphic-p)
     (progn
-      (nyan-mode)
+      ;; (nyan-mode)
       ))
