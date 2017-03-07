@@ -30,7 +30,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -115,6 +115,7 @@
                      json-mode
                      web-mode
                      fish-mode
+                     git-commit
                      helm-projectile
                      nyan-mode
                      neotree
