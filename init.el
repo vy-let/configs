@@ -30,7 +30,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -102,6 +102,7 @@
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "M-s-t") 'helm-projectile-switch-project)
 (global-set-key (kbd "s-t") 'helm-projectile-find-file)
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 
 
@@ -122,6 +123,7 @@
                      neotree
                      anzu
                      window-numbering
+                     vlf  ; very large files
                      smartparens))
 
 ; list the repositories containing them
@@ -150,6 +152,7 @@
 
 
 (setq vc-follow-symlinks t)
+(require 'vlf-setup)
 
 (projectile-global-mode)
 (setq projectile-enable-caching t)
