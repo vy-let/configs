@@ -61,7 +61,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
- '(highlight ((t (:background "gray20")))))
+ '(highlight ((t (:background "gray20"))))
+ '(window-divider ((t nil)))
+ '(window-divider-first-pixel ((t nil)))
+ '(window-divider-last-pixel ((t nil))))
 
 
 
@@ -85,7 +88,8 @@
 (if (display-graphic-p)
     (progn  ;; has graphical system
       (desktop-save-mode 1)
-      (mac-auto-operator-composition-mode))
+      (mac-auto-operator-composition-mode)
+      (global-set-key (kbd "s-n") 'make-frame-command))
   (progn    ;; isatty
     (menu-bar-mode -1)
     (xterm-mouse-mode 1)
@@ -100,8 +104,6 @@
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
 (global-set-key (kbd "s-z") 'undo)
-(global-set-key (kbd "M-s-t") 'helm-projectile-switch-project)
-(global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 
@@ -189,6 +191,11 @@
 (require 'helm-projectile)
 (helm-projectile-on)
 
+(global-set-key (kbd "M-s-t") 'helm-projectile-switch-project)
+(global-set-key (kbd "s-t") 'helm-projectile-find-file)
+(define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
+
+
 (add-to-list 'auto-mode-alist
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
 
@@ -224,6 +231,8 @@
 (global-anzu-mode +1)
 
 (setq make-backup-files nil)
+(setq create-lockfiles nil)
+(setq auto-save-default nil)
 (setq-default indent-tabs-mode nil)
 (setq js-indent-level 2)
 (setq js2-basic-offset 2)
