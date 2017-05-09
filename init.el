@@ -5,6 +5,41 @@
 (package-initialize)
 
 
+; list the packages you want
+(setq package-list '(dash
+                     enh-ruby-mode
+                     yaml-mode
+                     json-mode
+                     web-mode
+                     fish-mode
+                     git-commit
+                     helm-projectile
+                     smart-mode-line  smart-mode-line-powerline-theme
+                     nyan-mode
+                     color-theme-sanityinc-tomorrow
+                     neotree
+                     anzu
+                     window-numbering
+                     vlf  ; very large files
+                     smartparens))
+
+; list the repositories containing them
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")))
+
+; fetch the list of packages available
+(unless package-archive-contents
+  (package-refresh-contents))
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
+
+
+
+
+
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
@@ -17,7 +52,7 @@
    [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    (vector "#c5c8c6" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#373b41"))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night smart-mode-line-powerline)))
+ '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
  '(custom-safe-themes
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
@@ -106,41 +141,6 @@
 (global-set-key (kbd "s-z") 'undo)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
-
-
-
-
-
-; list the packages you want
-(setq package-list '(dash
-                     enh-ruby-mode
-                     yaml-mode
-                     json-mode
-                     web-mode
-                     fish-mode
-                     git-commit
-                     helm-projectile
-                     smart-mode-line  smart-mode-line-powerline-theme
-                     nyan-mode
-                     color-theme-sanityinc-tomorrow
-                     neotree
-                     anzu
-                     window-numbering
-                     vlf  ; very large files
-                     smartparens))
-
-; list the repositories containing them
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
-
-; fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
-
-; install the missing packages
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
 
 
 
