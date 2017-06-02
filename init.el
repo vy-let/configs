@@ -135,6 +135,7 @@
       mac-command-modifier 'super)
 
 
+(delete-selection-mode 1)
 (global-set-key (kbd "s-c") 'kill-ring-save)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
