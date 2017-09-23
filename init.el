@@ -1,3 +1,4 @@
+(setq shell-file-name "/bin/sh")
 (require 'package)
 
 ; activate all the packages (in particular autoloads)
@@ -7,13 +8,13 @@
 
 ; list the packages you want
 (setq package-list '(dash
-                     enh-ruby-mode
                      yaml-mode
                      json-mode
                      web-mode
                      fish-mode
                      git-commit
                      helm-projectile
+                     shackle
                      smart-mode-line  smart-mode-line-powerline-theme
                      nyan-mode
                      color-theme-sanityinc-tomorrow
@@ -57,15 +58,12 @@
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
- '(enh-ruby-add-encoding-comment-on-save nil)
- '(enh-ruby-check-syntax nil)
- '(enh-ruby-hanging-brace-deep-indent-level 2)
  '(fci-rule-color "#373b41")
  '(midnight-delay 10800)
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -97,6 +95,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
  '(highlight ((t (:background "gray20"))))
+ '(variable-pitch ((t (:family "Helvetica Neue"))))
+ '(vertical-border ((t (:foreground "#1d1f21"))))
  '(window-divider ((t nil)))
  '(window-divider-first-pixel ((t nil)))
  '(window-divider-last-pixel ((t nil))))
@@ -120,9 +120,14 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+(setq-default left-margin-width 5
+              right-margin-width 5)
+(set-window-margins nil 5 5)
+(add-to-list 'default-frame-alist '(internal-border-width . 15))
+
 (if (display-graphic-p)
     (progn  ;; has graphical system
-      (desktop-save-mode 1)
+      ;; (desktop-save-mode 1)  ; Not saving dasktop b/c it makes the mouse pointer go weird
       (mac-auto-operator-composition-mode)
       (global-set-key (kbd "s-n") 'make-frame-command))
   (progn    ;; isatty
@@ -157,6 +162,10 @@
 
 (setq vc-follow-symlinks t)
 (require 'vlf-setup)
+
+;; Keep helm at the bottom
+(setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.3)))
+(shackle-mode)
 
 (projectile-global-mode)
 (setq projectile-enable-caching t)
@@ -198,8 +207,8 @@
 (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
 
 
-(add-to-list 'auto-mode-alist
-             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
+;;(add-to-list 'auto-mode-alist
+;;             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
