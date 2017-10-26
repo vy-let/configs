@@ -1,4 +1,9 @@
 
+# Because Arch people say so, I guess.
+if status --is-login
+        set PATH $PATH /usr/bin /sbin
+end
+
 # iTerm Shell Integration
 #test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
 # Emacs Shell Integration
