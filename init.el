@@ -262,5 +262,5 @@
 
 (if (display-graphic-p)
     (progn
-      ;; (nyan-mode)
+      (nyan-mode)
       ))
