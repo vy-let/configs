@@ -7,7 +7,6 @@
 
 ; list the packages you want
 (setq package-list '(dash
-                     enh-ruby-mode
                      yaml-mode
                      json-mode
                      web-mode
@@ -65,7 +64,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode enh-ruby-mode nyan-mode dash smartparens magit helm-projectile)))
+    (color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -196,9 +195,6 @@
 (global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
 
-
-(add-to-list 'auto-mode-alist
-             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
 
