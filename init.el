@@ -12,7 +12,6 @@
                      json-mode
                      web-mode
                      fish-mode
-                     git-commit
                      helm-projectile
                      shackle
                      smart-mode-line  smart-mode-line-powerline-theme
@@ -22,6 +21,7 @@
                      anzu
                      window-numbering
                      vlf  ; very large files
+                     rainbow-delimiters
                      smartparens))
 
 ; list the repositories containing them
@@ -63,7 +63,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree git-commit web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -95,6 +95,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
  '(highlight ((t (:background "gray20"))))
+ '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#2a5100"))))
  '(variable-pitch ((t (:family "Helvetica Neue"))))
  '(vertical-border ((t (:foreground "#1d1f21"))))
  '(window-divider ((t nil)))
@@ -118,8 +119,7 @@
 (set-locale-environment "en_US.UTF-8")
 (prefer-coding-system 'utf-8)
 
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+
 (setq-default left-margin-width 5
               right-margin-width 5)
 (set-window-margins nil 5 5)
@@ -128,11 +128,15 @@
 (if (display-graphic-p)
     (progn  ;; has graphical system
       ;; (desktop-save-mode 1)  ; Not saving dasktop b/c it makes the mouse pointer go weird
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)
       (mac-auto-operator-composition-mode)
       (global-set-key (kbd "s-n") 'make-frame-command))
   (progn    ;; isatty
     (menu-bar-mode -1)
     (xterm-mouse-mode 1)
+    (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+    (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))))
 
 (setq mac-option-modifier 'meta
@@ -215,6 +219,7 @@
 (require 'smartparens-config)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (add-hook 'prog-mode-hook #'show-smartparens-mode)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 
 
@@ -248,7 +253,6 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(global-git-commit-mode)
 (global-auto-revert-mode 1)
 
 (window-numbering-mode)
