@@ -59,6 +59,9 @@
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
  '(fci-rule-color "#373b41")
+ '(inhibit-startup-screen t)
+ '(initial-buffer-choice t)
+ '(initial-major-mode (quote fundamental-mode))
  '(midnight-delay 10800)
  '(midnight-mode t)
  '(package-selected-packages
