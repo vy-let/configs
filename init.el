@@ -12,6 +12,7 @@
                      json-mode
                      web-mode
                      fish-mode
+                     markdown-mode
                      helm-projectile
                      shackle
                      smart-mode-line  smart-mode-line-powerline-theme
@@ -63,7 +64,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
