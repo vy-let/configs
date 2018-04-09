@@ -8,6 +8,7 @@
 
 ; list the packages you want
 (setq package-list '(dash
+                     enh-ruby-mode
                      yaml-mode
                      json-mode
                      web-mode
@@ -59,6 +60,7 @@
    (quote
     ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(electric-pair-mode t)
+ '(enh-ruby-check-syntax nil)
  '(fci-rule-color "#373b41")
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
@@ -67,7 +69,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -98,6 +100,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
+ '(fringe ((t (:background "#1d1f21" :foreground "#969896"))))
  '(highlight ((t (:background "gray20"))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#2a5100"))))
  '(variable-pitch ((t (:family "Helvetica Neue"))))
@@ -153,6 +156,7 @@
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
 (global-set-key (kbd "s-z") 'undo)
+(global-set-key (kbd "s-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
 
@@ -214,9 +218,12 @@
 (global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
 
+(if (file-exists-p "/usr/bin/ruby")
+    (progn
+      (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
+      (setq enh-ruby-program "/usr/bin/ruby")))
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-
 
 
 
