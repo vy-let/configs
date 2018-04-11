@@ -14,6 +14,7 @@
                      web-mode
                      fish-mode
                      markdown-mode
+                     magit
                      helm-projectile
                      shackle
                      smart-mode-line  smart-mode-line-powerline-theme
@@ -179,6 +180,11 @@
 
 (setq vc-follow-symlinks t)
 (require 'vlf-setup)
+
+
+;; Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+
 
 ;; Keep helm at the bottom
 (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.3)))
