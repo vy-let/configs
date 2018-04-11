@@ -127,6 +127,11 @@
 (prefer-coding-system 'utf-8)
 
 
+;; I'll want beeps or flashes at the heat death of the universe.
+;; For fuck's sake, what was everyone thinking using beeps for
+;; any and every trivial or important event in the application?
+(setq ring-bell-function 'ignore)
+
 (setq-default left-margin-width 5
               right-margin-width 5)
 (set-window-margins nil 5 5)
