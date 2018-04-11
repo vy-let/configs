@@ -187,7 +187,11 @@
 
 
 ;; Keep helm at the bottom
-(setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.3)))
+(setq helm-display-function 'pop-to-buffer)
+(setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
+                      ;("^magit.*?$" :regexp t :same t :inhibit-window-quit t :size 0.3)
+
+                      ))
 (shackle-mode)
 
 (projectile-global-mode)
