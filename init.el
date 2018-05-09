@@ -184,6 +184,10 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
+;; (global-magit-file-mode)  ;; This is necessary to init the following function
+;; (magit-add-section-hook 'magit-status-sections-hook
+;;                         'magit-insert-submodules
+;;                         t)
 
 
 ;; Keep helm at the bottom
