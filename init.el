@@ -239,6 +239,7 @@
       (setq enh-ruby-program "/usr/bin/ruby")))
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\.sample\\'" . yaml-mode))
 
 
 
