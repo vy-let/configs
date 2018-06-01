@@ -184,13 +184,17 @@
 
 ;; Magit
 (global-set-key (kbd "C-x g") 'magit-status)
+;; (global-magit-file-mode)  ;; This is necessary to init the following function
+;; (magit-add-section-hook 'magit-status-sections-hook
+;;                         'magit-insert-submodules
+;;                         t)
 
 
 ;; Keep helm at the bottom
 (setq helm-display-function 'pop-to-buffer)
 (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
-                                        ;('magit-status-mode :same t :inhibit-window-quit t)
-                      ('magit-status-mode :align 'right :size 0.45)
+                      ('magit-status-mode :same t :inhibit-window-quit t)
+                      ;;('magit-status-mode :align 'right :size 0.45)
                       ))
 (shackle-mode)
 
@@ -241,6 +245,8 @@
       (setq enh-ruby-program "/usr/bin/ruby")))
 
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml\\.sample\\'" . yaml-mode))
 
 
 
