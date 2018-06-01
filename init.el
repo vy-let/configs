@@ -193,8 +193,8 @@
 ;; Keep helm at the bottom
 (setq helm-display-function 'pop-to-buffer)
 (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
-                                        ;('magit-status-mode :same t :inhibit-window-quit t)
-                      ('magit-status-mode :align 'right :size 0.45)
+                      ('magit-status-mode :same t :inhibit-window-quit t)
+                      ;;('magit-status-mode :align 'right :size 0.45)
                       ))
 (shackle-mode)
 
