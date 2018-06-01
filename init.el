@@ -233,6 +233,8 @@
 (global-set-key (kbd "s-t") 'helm-projectile-find-file)
 (define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
 
+(global-set-key (kbd "C-x t") 'neotree-toggle)
+
 (if (file-exists-p "/usr/bin/ruby")
     (progn
       (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
