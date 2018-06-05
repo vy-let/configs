@@ -1,51 +1,52 @@
+;;;
+;;; Violet Baddley's Emacs startup file
+;;;
+;;; Most of the meaty stuff happens right after the boilerplate
+;;; custom-set-variables section. If you're curious, go ahead and skip
+;;; on down to the "END CUSTOM" heading.
+;;;
+
+
+
+;;
+;; Start by auto-installing use-package:
+;;
+
 (setq shell-file-name "/bin/sh")
 (require 'package)
 
 ; activate all the packages (in particular autoloads)
 (setq package-enable-at-startup nil)
-(package-initialize)
-
-
-; list the packages you want
-(setq package-list '(dash
-                     enh-ruby-mode
-                     yaml-mode
-                     json-mode
-                     web-mode
-                     fish-mode
-                     markdown-mode
-                     magit
-                     helm-projectile
-                     shackle
-                     smart-mode-line  smart-mode-line-powerline-theme
-                     nyan-mode
-                     color-theme-sanityinc-tomorrow
-                     neotree
-                     anzu
-                     window-numbering
-                     vlf  ; very large files
-                     rainbow-delimiters
-                     smartparens))
-
-; list the repositories containing them
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-; fetch the list of packages available
+(package-initialize)
+
+(setq package-list '(color-theme-sanityinc-tomorrow  ; must be loaded for custom section not to blow up
+                     use-package))
+
 (unless package-archive-contents
   (package-refresh-contents))
 
-; install the missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
 
+(eval-when-compile
+  (require 'use-package))
 
-
-
+(require 'bind-key)
 
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+
+
+;;
+;; Begin Custom Section
+;;
+
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -70,7 +71,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -120,6 +121,12 @@
 
 
 
+;;
+;; Basic environmental settings
+;;
+
+
+
 ;; TOTE – The Only Text Encoding
 (set-language-environment 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -129,14 +136,15 @@
 
 
 ;; I'll want beeps or flashes at the heat death of the universe.
-;; For fuck's sake, what was everyone thinking using beeps for
-;; any and every trivial or important event in the application?
 (setq ring-bell-function 'ignore)
 
+
+;; Make the window margins nice and aesthetically comfy.
 (setq-default left-margin-width 5
               right-margin-width 5)
 (set-window-margins nil 5 5)
 (add-to-list 'default-frame-alist '(internal-border-width . 15))
+
 
 (if (display-graphic-p)
     (progn  ;; has graphical system
@@ -145,6 +153,7 @@
       (scroll-bar-mode -1)
       (mac-auto-operator-composition-mode)
       (global-set-key (kbd "s-n") 'make-frame-command))
+
   (progn    ;; isatty
     (menu-bar-mode -1)
     (xterm-mouse-mode 1)
@@ -152,12 +161,29 @@
     (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))))
 
+
+;; Set option = meta to match behavior over tty, but leave
+;; right-option unbound for entering spécial characters.
 (setq mac-option-modifier 'meta
       mac-right-option-modifier nil
       mac-command-modifier 'super)
 
 
+
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+(setq auto-save-default nil)
+(setq-default indent-tabs-mode nil)
+(setq js-indent-level 2)
+(setq js2-basic-offset 2)
+(setq css-indent-offset 2)
+(setq vc-follow-symlinks t)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(global-auto-revert-mode 1)
 (delete-selection-mode 1)
+
+;; Add standard command-key functions.
 (global-set-key (kbd "s-c") 'kill-ring-save)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
@@ -167,52 +193,224 @@
 
 
 
+;;
+;; Editor Niceties
+;;
 
 
 
-(setq powerline-arrow-shape 'curve)
-(setq sml/theme 'powerline)
-(sml/setup)
+(use-package shackle
+  ;; redefines pop-up window behavior
+  :ensure t
+  :init (progn
+          (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
+                                ('magit-status-mode :same t :inhibit-window-quit t)
+                                ))
+          (shackle-mode)))
 
 
 
+(use-package smart-mode-line
+  :ensure t
+  :init (use-package smart-mode-line-powerline-theme
+          :ensure t
+          :init (progn
+                  (setq powerline-arrow-shape 'curve)
+                  (setq sml/theme 'powerline)
+                  (sml/setup))))
 
 
-(setq vc-follow-symlinks t)
-(require 'vlf-setup)
+
+(use-package smartparens
+  :ensure t
+  :hook ((prog-mode . smartparens-mode)
+         (prog-mode . show-smartparens-mode))
+  :config (require 'smartparens-config))
 
 
-;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-;; (global-magit-file-mode)  ;; This is necessary to init the following function
-;; (magit-add-section-hook 'magit-status-sections-hook
-;;                         'magit-insert-submodules
-;;                         t)
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
 
 
-;; Keep helm at the bottom
-(setq helm-display-function 'pop-to-buffer)
-(setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
-                      ('magit-status-mode :same t :inhibit-window-quit t)
-                      ;;('magit-status-mode :align 'right :size 0.45)
-                      ))
-(shackle-mode)
 
-(projectile-global-mode)
-(setq projectile-enable-caching t)
+(use-package anzu
+  ;; Shows you how many i-search results there are
+  :ensure t
+  :config (global-anzu-mode +1))
 
-(require 'helm-config)
-(helm-mode 1)
 
-(define-key global-map [remap find-file] 'helm-find-files)
-(define-key global-map [remap occur] 'helm-occur)
-(define-key global-map [remap list-buffers] 'helm-buffers-list)
-(define-key global-map [remap dabbrev-expand] 'helm-dabbrev)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(unless (boundp 'completion-in-region-function)
-  (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
-  (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
-;;(add-hook 'kill-emacs-hook #'(lambda () (and (file-exists-p "/tmp/helm-cfg.el") (delete-file "/tmp/helm-cfg.el"))))
+
+(use-package window-numbering
+  :ensure t
+  :init (progn
+          (window-numbering-mode)
+          (defface window-numbering-face '((default :weight extra-bold :foreground "RoyalBlue1"))
+            "Face for window number in the mode-line.")))
+
+
+
+(use-package nyan-mode
+  :if (display-graphic-p)
+  :ensure t
+  :init (nyan-mode))
+
+
+
+;;
+;; Helm
+;;
+
+
+
+(use-package helm
+  :ensure t
+  :init (progn
+          (setq helm-display-function 'pop-to-buffer)  ; for use with shackle
+          (require 'helm-config)
+          (helm-mode 1))
+
+  :bind (( [remap find-file]    . helm-find-files )
+         ( [remap occur]        . helm-occur )
+         ( [remap list-buffers] . helm-buffers-list )
+         ( [dabbrev-expand]     . helm-dabbrev )
+         ( "M-x" . helm-M-x ))
+
+  :config (progn
+            (unless (boundp 'completion-in-region-function)
+              (define-key lisp-interaction-mode-map [remap completion-at-point] 'helm-lisp-completion-at-point)
+              (define-key emacs-lisp-mode-map       [remap completion-at-point] 'helm-lisp-completion-at-point))
+            (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+            (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)))
+
+
+
+;;
+;; Project Organization
+;;
+
+
+
+(use-package projectile
+  :ensure t
+  :config (progn
+            (setq projectile-enable-caching t)
+            (projectile-global-mode)))
+
+
+
+(use-package helm-projectile
+  :ensure t
+  :demand t  ; don't wait for me to hit one of the keys
+  :after (helm projectile)
+  :bind (( "M-s-t" . helm-projectile-switch-project )
+         ( "s-t" . helm-projectile-find-file ))
+  :config (progn
+            (require 'helm-projectile)
+            (helm-projectile-on)))
+
+
+
+(use-package magit
+  :ensure t
+  :commands magit-status
+  :bind ("C-x g" . magit-status))
+
+
+
+;;
+;; Major Editing Modes
+;;
+
+
+
+;; enh-ruby mode requires a ruby executable.
+(if (file-exists-p "/usr/bin/ruby")
+    ;; when present, set up enh-ruby-mode by default, but also install
+    ;; ruby-mode as a fallback if needed.
+    (progn
+      (use-package enh-ruby-mode
+        :ensure t
+        :mode "\\.rb$"
+        :commands enh-ruby-mode
+        :config (setq enh-ruby-program "/usr/bin/ruby"))
+
+      (use-package ruby-mode
+        :ensure t
+        :commands ruby-mode))
+
+  ;; otherwise, when ruby is not present, just install and use
+  ;; ruby-mode by default.
+  (use-package ruby-mode
+    :ensure t
+    :commands ruby-mode
+    :mode "\\.rb$"))
+
+
+
+(use-package web-mode
+  :ensure t
+  :commands web-mode
+  :mode "\\.\\(erb\\|html\\)\\'"
+  :config (progn
+            (require 'web-mode)
+
+            (defun my-web-mode-hook ()
+              (setq web-mode-enable-auto-pairing nil)  ; to be compatible with smartparens
+              (setq web-mode-markup-indent-offset 2)
+              (setq web-mode-code-indent-offset 2))
+
+            (add-hook 'web-mode-hook 'my-web-mode-hook)
+
+            ;; also to be compatible with smartparens:
+            (defun sp-web-mode-is-code-context (id action context)
+              (and (eq action 'insert)
+                   (not (or (get-text-property (point) 'part-side)
+                            (get-text-property (point) 'block-side)))))))
+
+
+
+(use-package yaml-mode
+  :ensure t
+  :commands yaml-mode
+  :mode "\\.ya?ml\\(\\.sample\\)?\\'")
+
+
+
+(use-package json-mode
+  :ensure t
+  :commands json-mode
+  :mode "\\.json$")
+
+
+
+(use-package fish-mode
+  :ensure t
+  :commands fish-mode
+  :mode "\\.fish$")
+
+
+
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode "\\.\\(md\\|markdown\\)$")
+
+
+
+(use-package vlf
+  ;; very large files
+  :ensure t
+  :init (require 'vlf-setup))
+
+
+
+;;
+;; Custom functionality that should totally be built-in
+;;
+
+
 
 (defun scroll-half-page-down ()
   "scroll down half the page"
@@ -228,74 +426,3 @@
 
 (global-set-key [remap scroll-down-command] 'scroll-half-page-down)
 (global-set-key [remap scroll-up-command] 'scroll-half-page-up)
-
-
-(require 'helm-projectile)
-(helm-projectile-on)
-
-(global-set-key (kbd "M-s-t") 'helm-projectile-switch-project)
-(global-set-key (kbd "s-t") 'helm-projectile-find-file)
-(define-key helm-find-files-map "\t" 'helm-execute-persistent-action)  ;; tab inside C-x C-f
-
-(global-set-key (kbd "C-x t") 'neotree-toggle)
-
-(if (file-exists-p "/usr/bin/ruby")
-    (progn
-      (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
-      (setq enh-ruby-program "/usr/bin/ruby")))
-
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.ya?ml\\.sample\\'" . yaml-mode))
-
-
-
-(require 'smartparens-config)
-(add-hook 'prog-mode-hook #'smartparens-mode)
-(add-hook 'prog-mode-hook #'show-smartparens-mode)
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-
-
-(require 'web-mode)
-
-(defun my-web-mode-hook ()
-  (setq web-mode-enable-auto-pairing nil)  ; to be compatible with smartparens
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
-
-(add-hook 'web-mode-hook  'my-web-mode-hook)
-
-(defun sp-web-mode-is-code-context (id action context)
-  (and (eq action 'insert)
-       (not (or (get-text-property (point) 'part-side)
-                (get-text-property (point) 'block-side)))))
-
-;; end smartparens-web-mode support
-
-
-
-(global-anzu-mode +1)
-
-(setq make-backup-files nil)
-(setq create-lockfiles nil)
-(setq auto-save-default nil)
-(setq-default indent-tabs-mode nil)
-(setq js-indent-level 2)
-(setq js2-basic-offset 2)
-(setq css-indent-offset 2)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-(global-auto-revert-mode 1)
-
-(window-numbering-mode)
-(defface window-numbering-face '((default :weight extra-bold :foreground "RoyalBlue1"))
-  "Face for window number in the mode-line.")
-
-
-
-(if (display-graphic-p)
-    (progn
-      (nyan-mode)
-      ))
