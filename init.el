@@ -71,7 +71,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -242,12 +242,24 @@
 
 
 
-(use-package window-numbering
+(use-package winum
   :ensure t
-  :init (progn
-          (window-numbering-mode)
-          (defface window-numbering-face '((default :weight extra-bold :foreground "RoyalBlue1"))
-            "Face for window number in the mode-line.")))
+  :demand t  ; immediately show window numbers
+
+  :bind (( "C-x o" . winum-select-window-by-number )
+         ( "M-1" . winum-select-window-1 )
+         ( "M-2" . winum-select-window-2 )
+         ( "M-3" . winum-select-window-3 )
+         ( "M-4" . winum-select-window-4 )
+         ( "M-5" . winum-select-window-5 )
+         ( "M-6" . winum-select-window-6 )
+         ( "M-7" . winum-select-window-7 )
+         ( "M-8" . winum-select-window-8 )
+         ( "M-9" . winum-select-window-9 ))
+
+  :config (progn
+            (require 'winum)
+            (winum-mode) ))
 
 
 
@@ -315,7 +327,13 @@
 (use-package magit
   :ensure t
   :commands magit-status
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x g" . magit-status)
+  :config (progn
+            ;; Removes conflicting keybindings with winum window-switchers:
+            (define-key magit-status-mode-map (kbd "M-1") nil)
+            (define-key magit-status-mode-map (kbd "M-2") nil)
+            (define-key magit-status-mode-map (kbd "M-3") nil)
+            (define-key magit-status-mode-map (kbd "M-4") nil) ))
 
 
 
