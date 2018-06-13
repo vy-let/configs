@@ -71,7 +71,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -263,6 +263,13 @@
 
 
 
+(use-package adaptive-wrap
+  :ensure t
+  :hook (( prog-mode . adaptive-wrap-prefix-mode )
+         ( markdown-mode . adaptive-wrap-prefix-mode )))
+
+
+
 (use-package nyan-mode
   :if (display-graphic-p)
   :ensure t
@@ -450,7 +457,9 @@
             (setq markdown-header-scaling t)
 
             ;; Markdown is mainly for human language text, and should
-            ;; always use visual line mode.
+            ;; always use visual line mode. See `adaptive-wrap`,
+            ;; above, which keeps the hanging indent on wide list
+            ;; lines.
 
             (defun my-md-mode-hook () (visual-line-mode 1))
             (add-hook 'markdown-mode-hook 'my-md-mode-hook)
