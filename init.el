@@ -432,7 +432,29 @@
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
-  :mode "\\.\\(md\\|markdown\\)$")
+  :mode "\\.\\(md\\|markdown\\)$"
+  :config (progn
+
+            ;; Prefer Common Mark if present. Fall back to the
+            ;; original markdown perl script, and then to a generic
+            ;; binary otherwise.
+
+            (cond ((executable-find "cmark")
+                     (setq markdown-command "cmark") )
+                  ((executable-find "Markdown.pl")
+                     (setq markdown-command "Markdown.pl") )
+                  ((executable-find "markdown")
+                     (setq markdown-command "markdown") ))
+
+            ;; Basic prefs
+            (setq markdown-header-scaling t)
+
+            ;; Markdown is mainly for human language text, and should
+            ;; always use visual line mode.
+
+            (defun my-md-mode-hook () (visual-line-mode 1))
+            (add-hook 'markdown-mode-hook 'my-md-mode-hook)
+            (add-hook 'gfm-mode-hook 'my-md-mode-hook)))
 
 
 
