@@ -179,8 +179,9 @@
 (setq css-indent-offset 2)
 (setq vc-follow-symlinks t)
 
+;; Be a good programming citizen
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(global-auto-revert-mode 1)
+(global-auto-revert-mode 1)  ;; for when git updates the FS
 
 ;; What is this, 1983?
 (add-hook 'prog-mode-hook 'visual-line-mode)
