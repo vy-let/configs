@@ -181,6 +181,9 @@
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)
+
+;; What is this, 1983?
+(add-hook 'prog-mode-hook 'visual-line-mode)
 (delete-selection-mode 1)
 
 ;; Add standard command-key functions.
