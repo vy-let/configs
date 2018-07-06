@@ -71,7 +71,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (smart-quotes adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
