@@ -67,6 +67,7 @@
  '(inhibit-startup-screen t)
  '(initial-buffer-choice t)
  '(initial-major-mode (quote fundamental-mode))
+ '(markdown-header-scaling-values (quote (2.0 1.7 1.4 1.1 1.0 1.0)))
  '(midnight-delay 10800)
  '(midnight-mode t)
  '(package-selected-packages
@@ -102,10 +103,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
+ '(fixed-pitch ((t (:weight normal :width normal :family "Hasklig"))))
  '(fringe ((t (:background "#1d1f21" :foreground "#969896"))))
  '(highlight ((t (:background "gray20"))))
+ '(markdown-code-face ((t (:inherit fixed-pitch :background "#1d1f21" :foreground "#b294bb" :height 0.75))))
  '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#2a5100"))))
- '(variable-pitch ((t (:family "Helvetica Neue"))))
+ '(variable-pitch ((t (:height 160 :family "Alegreya"))))
  '(vertical-border ((t (:foreground "#1d1f21"))))
  '(window-divider ((t nil)))
  '(window-divider-first-pixel ((t nil)))
@@ -176,6 +179,8 @@
 (setq-default indent-tabs-mode nil)
 (setq js-indent-level 2)
 (setq js2-basic-offset 2)
+(setq-default sh-basic-offset 2
+              sh-indentation 2)
 (setq css-indent-offset 2)
 (setq vc-follow-symlinks t)
 
@@ -188,6 +193,7 @@
 (delete-selection-mode 1)
 
 ;; Add standard command-key functions.
+(global-set-key (kbd "s-a") 'mark-whole-buffer)
 (global-set-key (kbd "s-c") 'kill-ring-save)
 (global-set-key (kbd "s-x") 'kill-region)
 (global-set-key (kbd "s-v") 'yank)
@@ -465,7 +471,9 @@
             ;; above, which keeps the hanging indent on wide list
             ;; lines.
 
-            (defun my-md-mode-hook () (visual-line-mode 1))
+            (defun my-md-mode-hook ()
+              (visual-line-mode 1)
+              (variable-pitch-mode t))
             (add-hook 'markdown-mode-hook 'my-md-mode-hook)
             (add-hook 'gfm-mode-hook 'my-md-mode-hook)))
 
@@ -498,3 +506,15 @@
 
 (global-set-key [remap scroll-down-command] 'scroll-half-page-down)
 (global-set-key [remap scroll-up-command] 'scroll-half-page-up)
+
+;; Taken directly from
+;; https://emacs.stackexchange.com/questions/32958/insert-line-above-below#answer-32959
+(defun insert-line-above ()
+  (interactive)
+  (save-excursion
+    (end-of-line 0)
+    (open-line 1)))
+
+;; M-o is chosen as a counterpart to C-o, except that it leaves the
+;; current line alone and leaves the cursor where it is.
+(global-set-key (kbd "M-o") 'insert-line-above)
