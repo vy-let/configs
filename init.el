@@ -154,8 +154,12 @@
       ;; (desktop-save-mode 1)  ; Not saving dasktop b/c it makes the mouse pointer go weird
       (tool-bar-mode -1)
       (scroll-bar-mode -1)
-      (mac-auto-operator-composition-mode)
-      (global-set-key (kbd "s-n") 'make-frame-command))
+
+      (global-set-key (kbd "s-n") 'make-frame-command)
+
+      (if (eq system-type 'darwin)
+          (progn  ;; only if graphical mac
+            (mac-auto-operator-composition-mode))))
 
   (progn    ;; isatty
     (menu-bar-mode -1)
