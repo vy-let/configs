@@ -72,7 +72,7 @@
  '(midnight-mode t)
  '(package-selected-packages
    (quote
-    (smart-quotes adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
+    (perspective smart-quotes adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
  '(ruby-insert-encoding-magic-comment nil)
  '(send-mail-function (quote mailclient-send-it))
  '(vc-annotate-background nil)
@@ -374,6 +374,23 @@
   :after (treemacs projectile)
   :bind ("C-x t p" . treemacs-projectile)
   :commands treemacs-projectile)
+
+
+
+(use-package perspective
+  ;; Thanks @nex3!
+  :ensure t
+  :config (progn
+            (persp-mode))
+  :bind (( "s-p s" . persp-switch )
+         ( "s-p k" . persp-remove-buffer)
+         ( "s-p c" . persp-kill)
+         ( "s-p r" . persp-rename)
+         ( "s-p a" . persp-add-buffer)
+         ( "s-p A" . persp-set-buffer)
+         ( "s-p i" . persp-import)
+         ( "s-p <right>" . persp-next)
+         ( "s-p <left>" . persp-prev)))
 
 
 
