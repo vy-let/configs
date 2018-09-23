@@ -1,9 +1,12 @@
 ;;;
-;;; Violet Baddley's Emacs startup file
+;;; Vy-let's Emacs startup file
 ;;;
-;;; Most of the meaty stuff happens right after the boilerplate
-;;; custom-set-variables section. If you're curious, go ahead and skip
-;;; on down to the "END CUSTOM" heading.
+;;; Copyright 2016 - 2018 Violet Baddley. Your use of this
+;;; configuration is subject to the license set forth in the
+;;; License.markdown file distributed with this software.
+;;;
+;;; If you're unsure how to use this configuration, please refer to
+;;; the Readme.markdown file.
 ;;;
 
 
