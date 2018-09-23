@@ -9,7 +9,25 @@
 
 
 ;;
-;; Start by auto-installing use-package:
+;; Change the Easy Customization File
+;;
+;; The very first thing we must do is move the annoying "custom"
+;; variables outside of this file, because they're noisy and don't
+;; belong in version control. I'm setting this here, in case anything
+;; at the head of the file decides to write to it. Farther below
+;; (after having gotten the first essential packages) I load the file.
+;;
+(setq custom-file
+      (expand-file-name "local-prefs.el"
+                        "~/.emacs.d"))
+
+
+;;
+;; Start by auto-installing use-package and the themes.
+;;
+;; Use-package will gather all our dependencies. The exception is the
+;; themes, because they're referenced by the easy customization
+;; (local-prefs.el) file, and so must be ready super early.
 ;;
 
 (setq shell-file-name "/bin/sh")
@@ -22,7 +40,7 @@
 
 (package-initialize)
 
-(setq package-list '(color-theme-sanityinc-tomorrow  ; must be loaded for custom section not to blow up
+(setq package-list '(base16-theme
                      use-package))
 
 (unless package-archive-contents
@@ -37,89 +55,50 @@
 
 (require 'bind-key)
 
+
+
+;;
+;; Set up themes, faces, and other visual styles
+;;
+
 (add-to-list 'load-path "~/.emacs.d/themes/")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
+(setq base16-distinct-fringe-background nil)
+(setq custom-safe-themes t)  ;; blindly trust themes
+(load-theme 'base16-tomorrow-night t)
 
 
-;;
-;; Begin Custom Section
-;;
+;; Make window dividers effectively invisible
+(set-face-attribute 'vertical-border nil
+                    :foreground (face-attribute 'default :background))
+(set-face-attribute 'window-divider nil
+                    :foreground (face-attribute 'default :background))
+(set-face-attribute 'window-divider-first-pixel nil
+                    :foreground (face-attribute 'default :background))
+(set-face-attribute 'window-divider-last-pixel nil
+                    :foreground (face-attribute 'default :background))
 
 
+;; Make the window margins nice and aesthetically comfy.
+(setq-default left-margin-width 5
+              right-margin-width 5)
+(set-window-margins nil 5 5)
+(add-to-list 'default-frame-alist '(internal-border-width . 15))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector
-   (vector "#c5c8c6" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#373b41"))
- '(custom-enabled-themes (quote (sanityinc-tomorrow-night)))
- '(custom-safe-themes
-   (quote
-    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "06ed008240c1b9961a0214c87c078b4d78e802b811f58b8d071c396d9ff4fcb6" "1157a4055504672be1df1232bed784ba575c60ab44d8e6c7b3800ae76b42f8bd" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(electric-pair-mode t)
- '(enh-ruby-check-syntax nil)
- '(fci-rule-color "#373b41")
- '(inhibit-startup-screen t)
- '(initial-buffer-choice t)
- '(initial-major-mode (quote fundamental-mode))
- '(markdown-header-scaling-values (quote (2.0 1.7 1.4 1.1 1.0 1.0)))
- '(midnight-delay 10800)
- '(midnight-mode t)
- '(package-selected-packages
-   (quote
-    (perspective smart-quotes adaptive-wrap winum treemacs-projectile treemacs projectile helm shackle enh-ruby-mode markdown-mode rainbow-delimiters color-theme-sanityinc-tomorrow vlf window-numbering anzu neotree web-mode json-mode yaml-mode csv-mode golden-ratio-scroll-screen aggressive-indent fish-mode nyan-mode dash smartparens magit helm-projectile)))
- '(ruby-insert-encoding-magic-comment nil)
- '(send-mail-function (quote mailclient-send-it))
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#cc6666")
-     (40 . "#de935f")
-     (60 . "#f0c674")
-     (80 . "#b5bd68")
-     (100 . "#8abeb7")
-     (120 . "#81a2be")
-     (140 . "#b294bb")
-     (160 . "#cc6666")
-     (180 . "#de935f")
-     (200 . "#f0c674")
-     (220 . "#b5bd68")
-     (240 . "#8abeb7")
-     (260 . "#81a2be")
-     (280 . "#b294bb")
-     (300 . "#cc6666")
-     (320 . "#de935f")
-     (340 . "#f0c674")
-     (360 . "#b5bd68"))))
- '(vc-annotate-very-old-color nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hasklig" :foundry "nil" :slant normal :weight medium :height 120 :width normal))))
- '(fixed-pitch ((t (:weight normal :width normal :family "Hasklig"))))
- '(fringe ((t (:background "#1d1f21" :foreground "#969896"))))
- '(highlight ((t (:background "gray20"))))
- '(markdown-code-face ((t (:inherit fixed-pitch :background "#1d1f21" :foreground "#b294bb" :height 0.75))))
- '(smerge-refined-added ((t (:inherit smerge-refined-change :background "#2a5100"))))
- '(variable-pitch ((t (:height 160 :family "Alegreya"))))
- '(vertical-border ((t (:foreground "#1d1f21"))))
- '(window-divider ((t nil)))
- '(window-divider-first-pixel ((t nil)))
- '(window-divider-last-pixel ((t nil))))
 
 
 
 
 ;;
-;; END CUSTOM
+;; Load the local preferences file if it exists
 ;;
+
+(load custom-file
+      t    ;; without raising errors
+      t )  ;; silently
+
+
 
 
 
@@ -142,11 +121,7 @@
 (setq ring-bell-function 'ignore)
 
 
-;; Make the window margins nice and aesthetically comfy.
-(setq-default left-margin-width 5
-              right-margin-width 5)
-(set-window-margins nil 5 5)
-(add-to-list 'default-frame-alist '(internal-border-width . 15))
+
 
 
 (if (display-graphic-p)
@@ -159,10 +134,13 @@
 
       (if (eq system-type 'darwin)
           (progn  ;; only if graphical mac
-            (mac-auto-operator-composition-mode))))
+            (mac-auto-operator-composition-mode))
+
+        (progn  ;; graphical but not mac
+          (menu-bar-mode -1)
+          (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))))))
 
   (progn    ;; isatty
-    (menu-bar-mode -1)
     (xterm-mouse-mode 1)
     (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
     (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
@@ -176,10 +154,13 @@
       mac-command-modifier 'super)
 
 
+;; Behavior
+(electric-pair-mode 1)
+(setq inhibit-startup-screen t)
+(setq initial-major-mode 'fundamental-mode)  ;; scratch buffer
 
-(setq make-backup-files nil)
-(setq create-lockfiles nil)
-(setq auto-save-default nil)
+
+;; Indentation
 (setq-default indent-tabs-mode nil)
 (setq js-indent-level 2)
 (setq js2-basic-offset 2)
@@ -189,8 +170,12 @@
 (setq vc-follow-symlinks t)
 
 ;; Be a good programming citizen
+(setq make-backup-files nil)
+(setq create-lockfiles nil)
+(setq auto-save-default nil)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)  ;; for when git updates the FS
+(setq ruby-insert-encoding-magic-comment nil)
 
 ;; What is this, 1983?
 (add-hook 'prog-mode-hook 'visual-line-mode)
@@ -409,7 +394,8 @@
         :ensure t
         :mode "\\.rb$"
         :commands enh-ruby-mode
-        :config (setq enh-ruby-program "/usr/bin/ruby"))
+        :config (setq enh-ruby-program "/usr/bin/ruby"
+                      enh-ruby-check-syntax nil))
 
       (use-package ruby-mode
         :ensure t
@@ -486,6 +472,8 @@
 
             ;; Basic prefs
             (setq markdown-header-scaling t)
+            (set-face-attribute 'markdown-code-face nil
+                                :inherit 'fixed-pitch)
 
             ;; Markdown is mainly for human language text, and should
             ;; always use visual line mode. See `adaptive-wrap`,
