@@ -317,7 +317,10 @@
   :ensure t
   :config (progn
             (setq projectile-enable-caching t)
-            (projectile-global-mode)))
+            (projectile-global-mode)
+
+            ;; The C-c p leader key used to be set by default, but is not anymore.
+            (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 
 
 
