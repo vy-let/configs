@@ -338,9 +338,12 @@
 
 (use-package magit
   :ensure t
+  :demand t  ;; Need to demand to keep global-git-commit-mode at the ready
   :commands magit-status
   :bind ("C-x g" . magit-status)
   :config (progn
+            (global-git-commit-mode t)
+
             ;; Removes conflicting keybindings with winum window-switchers:
             (define-key magit-status-mode-map (kbd "M-1") nil)
             (define-key magit-status-mode-map (kbd "M-2") nil)
