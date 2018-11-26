@@ -181,6 +181,7 @@
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (global-auto-revert-mode 1)  ;; for when git updates the FS
 (setq ruby-insert-encoding-magic-comment nil)
+(setq enh-ruby-add-encoding-comment-on-save nil)
 
 ;; What is this, 1983?
 (add-hook 'prog-mode-hook 'visual-line-mode)
