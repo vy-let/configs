@@ -158,6 +158,11 @@
       mac-right-option-modifier nil
       mac-command-modifier 'super)
 
+;; Normally comment-line is `C-x C-;` but `C-;` cannot be sent over
+;; tty. `C-x ;` normally invokes `comment-set-column` which I've never
+;; needed, so just clobber that.
+(global-set-key (kbd "C-x ;") 'comment-line)
+
 
 ;; Behavior
 (electric-pair-mode 1)
