@@ -507,6 +507,13 @@
 
 
 
+(use-package terraform-mode
+  :ensure t
+  :commands terraform-mode
+  :mode "\\.\\(tf|tfvars\\)$")
+
+
+
 ;;
 ;; Custom functionality that should totally be built-in
 ;;
