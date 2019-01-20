@@ -521,6 +521,37 @@
 
 
 ;;
+;; Org mode export backends
+;;
+;; The use-package declarations here do nothing but make sure the code
+;; is downloaded. Their actual loading is handled natively by the org
+;; export backend, so long as we tell it what's available before
+;; org-mode loads (which happens right at the end of this section).
+;;
+
+
+
+(use-package ox-jira
+  ;; Backend for bizarre jira syntax
+  :ensure t
+  :defer t)
+
+(setq org-export-backends
+      ;; These are the defaults. Not sure how to avoid re-defining
+      ;; them, because this list must be set before org-mode loads.
+      '(ascii
+        html
+        icalendar
+        latex
+        odt
+
+        ;; These are the ones we want to add.
+        md
+        jira))
+
+
+
+;;
 ;; Custom functionality that should totally be built-in
 ;;
 
