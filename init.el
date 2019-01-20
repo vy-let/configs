@@ -281,10 +281,10 @@
 
 
 
-(use-package nyan-mode
-  :if (display-graphic-p)
-  :ensure t
-  :init (nyan-mode))
+;; (use-package nyan-mode
+;;   :if (display-graphic-p)
+;;   :ensure t
+;;   :init (nyan-mode))
 
 
 
