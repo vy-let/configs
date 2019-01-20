@@ -277,7 +277,9 @@
 (use-package adaptive-wrap
   :ensure t
   :hook (( prog-mode . adaptive-wrap-prefix-mode )
-         ( markdown-mode . adaptive-wrap-prefix-mode )))
+         ( markdown-mode . adaptive-wrap-prefix-mode )
+         ( org-mode . adaptive-wrap-prefix-mode )
+         ( org-mode . visual-line-mode )))
 
 
 
