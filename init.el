@@ -532,12 +532,7 @@
 
 
 ;;
-;; Org mode export backends
-;;
-;; The use-package declarations here do nothing but make sure the code
-;; is downloaded. Their actual loading is handled natively by the org
-;; export backend, so long as we tell it what's available before
-;; org-mode loads (which happens right at the end of this section).
+;; Org mode setup and export backends
 ;;
 
 
