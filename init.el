@@ -537,6 +537,16 @@
 
 
 
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :defer t
+  :config (progn
+            (set-face-attribute 'org-level-1 nil :height 2.0)
+            (set-face-attribute 'org-level-2 nil :height 1.5)
+            (set-face-attribute 'org-level-3 nil :height 1.25)
+            (set-face-attribute 'org-level-4 nil :height 1.125)
+            (set-face-attribute 'org-level-5 nil :height 1.0)))
+
 (use-package ox-jira
   ;; Backend for bizarre jira syntax
   :ensure t
