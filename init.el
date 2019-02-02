@@ -231,11 +231,11 @@
 
 
 
-(use-package smartparens
-  :ensure t
-  :hook ((prog-mode . smartparens-mode)
-         (prog-mode . show-smartparens-mode))
-  :config (require 'smartparens-config))
+;; (use-package smartparens
+;;   :ensure t
+;;   :hook ((prog-mode . smartparens-mode)
+;;          (prog-mode . show-smartparens-mode))
+;;   :config (require 'smartparens-config))
 
 
 
@@ -447,7 +447,7 @@
             (require 'web-mode)
 
             (defun my-web-mode-hook ()
-              (setq web-mode-enable-auto-pairing nil)  ; to be compatible with smartparens
+              ;; (setq web-mode-enable-auto-pairing nil)  ; to be compatible with smartparens
               (setq web-mode-markup-indent-offset 2)
               (setq web-mode-code-indent-offset 2))
 
