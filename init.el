@@ -201,6 +201,9 @@
 (global-set-key (kbd "s-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
+;; Don't assume qwerty
+(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+
 
 
 ;;
