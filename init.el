@@ -437,8 +437,14 @@
   :ensure t
   :commands rjsx-mode
   :mode "\\.jsx$"
-  :config (setq js2-mode-show-parse-errors nil
-                js2-mode-show-strict-warnings nil))
+  :config (progn
+            (setq js2-mode-show-parse-errors nil
+                  js2-mode-show-strict-warnings nil)
+
+            ;; Keep js2 from making function params an odd green.
+            (set-face-attribute 'js2-function-param nil
+                                :foreground 'unspecified
+                                :inherit 'default)))
 
 
 
