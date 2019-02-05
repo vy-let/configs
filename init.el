@@ -201,14 +201,20 @@
 (global-set-key (kbd "s-b") 'switch-to-buffer)
 (global-set-key (kbd "C-x k") 'kill-this-buffer)
 
-;; Don't assume qwerty
-(setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
-
 
 
 ;;
 ;; Editor Niceties
 ;;
+
+
+
+(use-package avy
+  :init (progn
+          (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
+          (global-set-key (kbd "C-z") 'avy-goto-char-timer)
+          (global-set-key (kbd "M-z") 'avy-goto-line)
+          (global-set-key (kbd "C-M-z") 'avy-goto-word-0)))
 
 
 
