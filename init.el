@@ -215,20 +215,21 @@
           (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s))
           (global-set-key (kbd "C-z") 'avy-goto-char)
           (global-set-key (kbd "M-z") 'avy-goto-line)
-          (global-set-key (kbd "C-M-z") 'avy-goto-word-0)
+          (global-set-key (kbd "C-M-z") 'avy-goto-word-0))
 
-          ;; These are the colors that are used to highlight possible
-          ;; matches. They are sampled from base16 tomorrow night
-          ;; theme. I thought about just referencing the colors right
-          ;; out of the theme, but that would become brittle if one
-          ;; later decided to switch to a different theme and
-          ;; uninstalled the base16 themes package.
-          (set-face-attribute 'avy-lead-face nil
-                              :foreground "#1d1f21" :background "#81a2be")
-          (set-face-attribute 'avy-lead-face-0 nil
-                              :foreground "#1d1f21" :background "#b294bb")
-          (set-face-attribute 'avy-lead-face-2 nil
-                              :foreground "#1d1f21" :background "#cc6666")))
+  :config (progn
+            ;; These are the colors that are used to highlight possible
+            ;; matches. They are sampled from base16 tomorrow night
+            ;; theme. I thought about just referencing the colors right
+            ;; out of the theme, but that would become brittle if one
+            ;; later decided to switch to a different theme and
+            ;; uninstalled the base16 themes package.
+            (set-face-attribute 'avy-lead-face nil
+                                :foreground "#1d1f21" :background "#81a2be")
+            (set-face-attribute 'avy-lead-face-0 nil
+                                :foreground "#1d1f21" :background "#b294bb")
+            (set-face-attribute 'avy-lead-face-2 nil
+                                :foreground "#1d1f21" :background "#cc6666")))
 
 
 
