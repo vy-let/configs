@@ -131,6 +131,7 @@
 (if (display-graphic-p)
     (progn  ;; has graphical system
       ;; (desktop-save-mode 1)  ; Not saving dasktop b/c it makes the mouse pointer go weird
+      (setq blink-cursor-blinks 0)  ;; keep blinking cursor forever
       (tool-bar-mode -1)
       (scroll-bar-mode -1)
 
