@@ -239,7 +239,12 @@
   ;; redefines pop-up window behavior
   :ensure t
   :init (progn
-          (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :size 0.3)
+          (setq shackle-rules '(("\\`\\*helm.*?\\*\\'" :regexp t :align below :size 0.3)
+                                ("*Org Export Dispatcher*" :select t :align right :size 0.3)
+                                ("\\*Org.*?\\'" :regexp t :select t :align right :size 0.3)
+                                ("\\`\\*Help.*?\\*\\'" :regexp t :select t :align right :size 86)
+                                ("\\`\\*Backtrace.*?\\'" :regexp t :select t :align right :size 86)
+                                ("\\`\\*Compile-Log.*?\\'" :regexp t :select t :align below :size 0.1)
                                 ('magit-status-mode :same t :inhibit-window-quit t)
                                 ))
           (shackle-mode)))
@@ -586,6 +591,25 @@
               (setq current-prefix-arg '(4))  ;; simulate C-u prefix
               (call-interactively 'org-toggle-checkbox))
             (define-key org-mode-map (kbd "C-c c") #'my/org-toggle-checkbox-presence)
+
+            ;; The following messing around with org-mode windowing is originally from
+            ;; <https://github.com/sk8ingdom/.emacs.d/blob/master/general-config/general-plugins.el>
+            ;; and modified by me.
+
+            ;; **HACK** Force org-mode to use standard window-opening functions that shackle hooks into:
+            (defun org-switch-to-buffer-other-window (args)
+              (switch-to-buffer-other-window args))
+
+            ;; Define a function-wrapper to suppress calls to delete-other-windows, because that behavior super duper fucking annoying.
+            (defun my/suppress-delete-other-windows (old-fun &rest args)
+              (cl-flet ((silence (&rest args) (ignore)))
+                (advice-add 'delete-other-windows :around #'silence)
+                (unwind-protect
+                    (apply old-fun args)
+                  (advice-remove 'delete-other-windows #'silence))))
+
+            ;; Any interactive function which I normally use in org-mode, that creates a new buffer, should be listed here:
+            (advice-add 'org-export-dispatch :around #'my/suppress-delete-other-windows)
             ))
 
 (use-package ox-jira
