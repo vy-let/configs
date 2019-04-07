@@ -577,7 +577,16 @@
             (set-face-attribute 'org-level-2 nil :height 1.5)
             (set-face-attribute 'org-level-3 nil :height 1.25)
             (set-face-attribute 'org-level-4 nil :height 1.125)
-            (set-face-attribute 'org-level-5 nil :height 1.0)))
+            (set-face-attribute 'org-level-5 nil :height 1.0)
+
+            ;; Rebind (C-u org-toggle-checkbox) to (C-c c) because its default keybinding is bizarre:
+
+            (defun my/org-toggle-checkbox-presence ()
+              (interactive)
+              (setq current-prefix-arg '(4))  ;; simulate C-u prefix
+              (call-interactively 'org-toggle-checkbox))
+            (define-key org-mode-map (kbd "C-c c") #'my/org-toggle-checkbox-presence)
+            ))
 
 (use-package ox-jira
   ;; Backend for bizarre jira syntax
