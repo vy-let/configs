@@ -664,3 +664,16 @@
 ;; M-o is chosen as a counterpart to C-o, except that it leaves the
 ;; current line alone and leaves the cursor where it is.
 (global-set-key (kbd "M-o") 'insert-line-above)
+
+;; A version of kill-word (from simple.el) that doesn't save to the
+;; kill ring.
+(defun sensible-forward-delete-word (arg)
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
+(defun sensible-delete-word (arg)
+  (interactive "p")
+  (sensible-forward-delete-word (- arg)))
+
+(global-set-key (kbd "M-DEL") 'sensible-delete-word)
+(global-set-key (kbd "M-d") 'sensible-forward-delete-word)
