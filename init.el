@@ -173,6 +173,7 @@
 
 ;; Indentation
 (setq-default indent-tabs-mode nil)
+(setq default-tab-width 2)  ;; make tab-preferred modes like Go display like 2-space
 (setq js-indent-level 2)
 (setq js2-basic-offset 2)
 (setq-default sh-basic-offset 2
@@ -565,6 +566,13 @@
   :ensure t
   :commands terraform-mode
   :mode "\\.\\(tf|tfvars\\)$")
+
+
+
+(use-package go-mode
+  :ensure t
+  :commands go-mode
+  :mode "\\.go$")
 
 
 
