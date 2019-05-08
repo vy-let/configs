@@ -299,7 +299,7 @@
          ( "M-9" . winum-select-window-9 ))
 
   :config (progn
-            (setq-default winum-scope 'frame-local)
+            (setq-default winum-scope 'visible)
             (require 'winum)
             (winum-mode) ))
 
