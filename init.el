@@ -91,6 +91,10 @@
 (add-to-list 'default-frame-alist '(internal-border-width . 15))
 
 
+;; Make the line-spacing more reasonable
+(setq-default line-spacing 0.175)
+
+
 
 
 
