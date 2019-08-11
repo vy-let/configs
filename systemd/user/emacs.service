@@ -2,13 +2,12 @@
 Description=Emacs
 
 [Service]
-Type=forking
+Type=simple
 Environment="TERM=xterm-256color"
-ExecStart=/usr/bin/emacs --daemon
-ExecStop=/usr/bin/emacsclient --eval "(progn (setq kill-emacs-hook 'nil) (kill-emacs))"
-Restart=always
+ExecStart=/usr/bin/emacs --fg-daemon
+Restart=on-failure
 
-TimeoutStartSec=0
+TimeoutStopSec=3
 
 [Install]
 WantedBy=default.target
