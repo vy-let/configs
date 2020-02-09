@@ -504,6 +504,23 @@
 
 
 
+(use-package swift-mode
+  :ensure t
+  :commands swift-mode
+  :mode "\\.swift$")
+
+
+
+(use-package haskell-mode
+  :ensure t
+  :config (progn
+            (eval-after-load "haskell-mode"
+              '(define-key haskell-mode-map (kbd "C-c C-c") 'haskell-compile))
+            (eval-after-load "haskell-cabal"
+              '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))))
+
+
+
 (use-package yaml-mode
   :ensure t
   :commands yaml-mode
