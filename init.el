@@ -607,6 +607,7 @@
 (use-package org
   :mode (("\\.org$" . org-mode))
   :defer t
+  :hook (org-mode . variable-pitch-mode)
   :config (progn
             (set-face-attribute 'org-level-1 nil :height 2.0)
             (set-face-attribute 'org-level-2 nil :height 1.5)
