@@ -172,7 +172,8 @@
 ;; Behavior
 (electric-pair-mode 1)
 (setq inhibit-startup-screen t)
-(setq initial-major-mode 'fundamental-mode)  ;; scratch buffer
+(setq initial-major-mode 'org-mode)  ;; scratch buffer
+(setq initial-scratch-message nil)
 
 
 ;; Indentation
