@@ -219,7 +219,7 @@
 (use-package avy
   :ensure t  ;; This should be built-in, not sure why it's not always available
   :init (progn
-          (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s)
+          (setq avy-keys '(?a ?o ?e ?u ?i ?d ?h ?t ?n ?s ?p ?y ?f ?g ?c ?r ?l)
                 avy-all-windows nil)
           (global-set-key (kbd "C-z") 'avy-goto-char)
           (global-set-key (kbd "M-z") 'avy-goto-line)
