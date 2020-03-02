@@ -470,7 +470,7 @@
 (use-package rjsx-mode
   :ensure t
   :commands rjsx-mode
-  :mode "\\.jsx$"
+  :mode "\\.jsx?$"
   :config (progn
             (setq js2-mode-show-parse-errors nil
                   js2-mode-show-strict-warnings nil)
