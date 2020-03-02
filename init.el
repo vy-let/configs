@@ -70,7 +70,7 @@
 (setq base16-distinct-fringe-background nil)
 (setq base16-theme-256-color-source "colors")
 (setq custom-safe-themes t)  ;; blindly trust themes
-(load-theme 'base16-tomorrow-night t)
+(load-theme 'base16-tomorrow t)
 
 
 ;; Make window dividers effectively invisible
