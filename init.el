@@ -404,7 +404,10 @@
   :ensure t
   ;; do setqs in config
   :config (progn
-            (treemacs-filewatch-mode t))
+            (treemacs-filewatch-mode t)
+            (setq treemacs-default-visit-action
+                  #'treemacs-visit-node-in-most-recently-used-window)
+            (treemacs-follow-mode nil))
   :bind (( "M-0" . treemacs-select-window )
          ( "C-x t t" . treemacs )
          ( "C-x t f" . treemacs-find-file )))
