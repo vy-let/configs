@@ -1,7 +1,7 @@
 ;;;
 ;;; Vy-let's Emacs startup file
 ;;;
-;;; Copyright 2016 - 2018 Violet Baddley. Your use of this
+;;; Copyright 2016 - 2020 Violet Baddley. Your use of this
 ;;; configuration is subject to the license set forth in the
 ;;; License.markdown file distributed with this software.
 ;;;
@@ -70,7 +70,7 @@
 (setq base16-distinct-fringe-background nil)
 (setq base16-theme-256-color-source "colors")
 (setq custom-safe-themes t)  ;; blindly trust themes
-(load-theme 'base16-tomorrow t)
+(load-theme 'base16-tomorrow-night t)
 
 
 ;; Make window dividers effectively invisible
