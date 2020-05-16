@@ -139,6 +139,10 @@
       (tool-bar-mode -1)
       (scroll-bar-mode -1)
 
+      ;; Start up at double the default size:
+      (add-to-list 'default-frame-alist '(width . 160))
+      (add-to-list 'default-frame-alist '(height . 72))
+
       (global-set-key (kbd "s-n") 'make-frame-command)
 
       (if (eq system-type 'darwin)
@@ -440,14 +444,68 @@
 
 
 
+(use-package which-key
+  :ensure t
+  :init (which-key-mode))
+
+
+
+(use-package company
+  :ensure t
+  :init (setq company-minimum-prefix-length 2
+              company-idle-delay 0.0)
+
+  :hook (( prog-mode . company-mode ))
+  :commands company-mode)
+
+(use-package lsp-mode
+  :ensure t
+
+  ;; Before enabling lsp-mode, make sure that we have the right
+  ;; package installed. (If not, use `npm install --global
+  ;; javascript-typescript-langserver`.)
+  :if (ignore-errors
+        (eq 0
+            (call-process "which" nil nil nil
+                          "javascript-typescript-langserver")))
+
+  :init (setq lsp-keymap-prefix "C-c l"
+              lsp-signature-render-documentation nil)
+
+  :hook ( ;; add the integrated language modes here:
+         (rjsx-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+
+  :commands (lsp lsp-deferred))
+
+(use-package lsp-ui
+  :ensure t
+  :after lsp-mode
+  :commands lsp-ui-mode)
+
+(use-package helm-lsp
+  :ensure t
+  :after (helm lsp-mode)
+  :commands helm-lsp-workspace-symbol)
+
+(use-package lsp-treemacs
+  :ensure t
+  :after (treemacs lsp-mode)
+  :commands lsp-treemacs-errors-list)
+
+
+
 ;;
 ;; Major Editing Modes
 ;;
 
 
 
-;; enh-ruby mode requires a ruby executable.
-(if (file-exists-p "/usr/bin/ruby")
+;; enh-ruby mode requires a ruby executable.  The `which' program
+;; exits with 0 when the program is found, and 1 otherwise.
+(if (ignore-errors
+        (eq 0
+            (call-process "which" nil nil nil "ruby")))
     ;; when present, set up enh-ruby-mode by default, but also install
     ;; ruby-mode as a fallback if needed.
     (progn
