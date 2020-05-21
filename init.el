@@ -90,6 +90,8 @@
 (set-window-margins nil 5 5)
 (add-to-list 'default-frame-alist '(internal-border-width . 15))
 
+;; Keep the minibuffer from growing
+(setq max-mini-window-height 1)
 
 ;; Make the line-spacing more reasonable
 (setq-default line-spacing 0.175)
