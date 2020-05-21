@@ -452,7 +452,7 @@
 
 (use-package company
   :ensure t
-  :init (setq company-minimum-prefix-length 2
+  :init (setq company-minimum-prefix-length 1
               company-idle-delay 0.0)
 
   :hook (( prog-mode . company-mode ))
@@ -461,22 +461,24 @@
 (use-package lsp-mode
   :ensure t
 
-  ;; Before enabling lsp-mode, make sure that we have the right
-  ;; package installed. (If not, use `npm install --global
-  ;; javascript-typescript-langserver`.)
-  :if (ignore-errors
-        (eq 0
-            (call-process "which" nil nil nil
-                          "javascript-typescript-langserver")))
-
   :init (setq lsp-keymap-prefix "C-c l"
-              lsp-signature-render-documentation nil)
+              lsp-signature-render-documentation nil
+              lsp-document-sync-method 1
+              )
 
-  :hook ( ;; add the integrated language modes here:
-         (rjsx-mode . lsp)
+  :hook ( ;; See also the lsp hooks configured within individual major modes
          (lsp-mode . lsp-enable-which-key-integration))
 
   :commands (lsp lsp-deferred))
+
+(defun vy/is-program-installed (program-name)
+  (ignore-errors
+    (eq 0
+        (call-process "which" nil nil nil program-name))))
+
+(defun vy/maybe-enable-lsp (program-name)
+  (when (vy/is-program-installed program-name)
+    (lsp)))
 
 (use-package lsp-ui
   :ensure t
@@ -533,6 +535,11 @@
   :ensure t
   :commands rjsx-mode
   :mode "\\.jsx?$"
+
+  ;; Hook on lsp-mode if js backend is installed:
+  :hook (( rjsx-mode . (lambda ()
+                         (vy/maybe-enable-lsp "javascript-typescript-langserver"))))
+
   :config (progn
             (setq js2-mode-show-parse-errors nil
                   js2-mode-show-strict-warnings nil)
@@ -566,10 +573,22 @@
 
 
 
+(use-package lsp-sourcekit
+  ;; For swift-mode
+  :ensure t
+  :after lsp-mode
+  :if (vy/is-program-installed "sourcekit-lsp")
+
+  :config (setq lsp-sourcekit-executable
+                (string-trim
+                 (shell-command-to-string "which sourcekit-lsp"))))
+
 (use-package swift-mode
   :ensure t
   :commands swift-mode
-  :mode "\\.swift$")
+  :mode "\\.swift$"
+  :hook (swift-mode . (lambda ()
+                        (vy/maybe-enable-lsp "sourcekit-lsp"))))
 
 
 
