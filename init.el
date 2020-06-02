@@ -455,7 +455,7 @@
 (use-package company
   :ensure t
   :init (setq company-minimum-prefix-length 1
-              company-idle-delay 0.0)
+              company-idle-delay 0.1)
 
   :hook (( prog-mode . company-mode ))
   :commands company-mode)
