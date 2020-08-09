@@ -588,6 +588,12 @@
 
 
 
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
+
+
+
 (use-package terraform-mode
   :ensure t
   :commands terraform-mode
