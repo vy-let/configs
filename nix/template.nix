@@ -1,11 +1,6 @@
 #
-# This is a template for configuring an individual machine, including
-# unique things such as its hostname, active services, and open ports.
-#
-# 0.  Make sure you have a suitable hardware-configuration
-# 1.  Copy this file to /etc/nixos/configuration.nix
-# 2.  Choose which sprinkles you want to import
-# 3.  Set the unique settings
+# This is a template for `/etc/nix/configuration.nix`, assuming the
+# config repository has been cloned into `/etc/nix/sync`.
 #
 
 { config, pkgs, lib, ... }:
@@ -16,7 +11,8 @@
     # Every machine is expected to have an individual hardware config
     ./hardware-configuration.nix
 
-    # Use the base configuration common to all machines
+    # Use the base configuration common to all machines, which
+    # includes other non-sprinkles files in this directory
     ./sync/nix/base.nix
 
     # Add sprinkles:
