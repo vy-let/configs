@@ -10,8 +10,10 @@ let
 in {
 
   imports = [
-    ./home.nix
+    ./sprinkles/home-manager.nix
   ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # The actual opened ports are determined on a per-host basis.
   networking.firewall.enable = true;

@@ -22,6 +22,18 @@
 
   ];
 
+  home-manager.users.mistress = { pkgs, ... }: {
+    imports = [
+
+      ./sync/nix/home/base.nix
+
+      # Add home-manager sprinkles:
+      # ./sync/nix/home/sprinkles/headless.nix
+      # ./sync/nix/home/sprinkles/syncthing.nix
+
+    ];
+  };
+
   # Finally, options unique to this machine:
 
   # networking.hostName = "";
