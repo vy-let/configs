@@ -653,11 +653,6 @@
             (advice-add 'org-export-dispatch :around #'my/suppress-delete-other-windows)
             ))
 
-(use-package ox-jira
-  ;; Backend for bizarre jira syntax
-  :ensure t
-  :defer t)
-
 (setq org-export-backends
       ;; These are the defaults. Not sure how to avoid re-defining
       ;; them, because this list must be set before org-mode loads.
@@ -668,8 +663,7 @@
         odt
 
         ;; These are the ones we want to add.
-        md
-        jira))
+        md ))
 
 
 
