@@ -23,6 +23,7 @@
     thunderbird
     audacity
     element-desktop
+    xournal
 
     # System extras
     nextcloud-client
