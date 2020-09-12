@@ -32,7 +32,7 @@
         set last_status $status
         printf "\n%s: %s" (hostname) (basename (pwd))
         set_color normal
-        printf "%s " (__fish_git_prompt)
+        __fish_git_prompt
         set_color normal
         printf "\n-"
         printf "> "
@@ -44,6 +44,7 @@
         body = "git add -A; and git commit $argv";
         wraps = "git commit";
       };
+
     };
 
     interactiveShellInit = ''
@@ -53,6 +54,7 @@
       set __fish_git_prompt_showuntrackedfiles 'yes'
       set __fish_git_prompt_showstashstate 'yes'
     '';
+
   };
 
 
@@ -87,11 +89,11 @@
     set fish_pager_color_prefix white\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
     set fish_pager_color_progress brwhite\x1e\x2d\x2dbackground\x3dcyan
 
-    set __fish_git_prompt_color_branch (set_color green)
-    set __fish_git_prompt_color_merging (set_color magenta)
-    set __fish_git_prompt_color_dirtystate (set_color red)
-    set __fish_git_prompt_color_untrackedfiles (set_color red)
-    set __fish_git_prompt_color_stagedstate (set_color green)
-    set __fish_git_prompt_color_stashstate (set_color blue)
+    set -g __fish_git_prompt_color_branch green
+    set -g __fish_git_prompt_color_merging magenta
+    set -g __fish_git_prompt_color_dirtystate red
+    set -g __fish_git_prompt_color_untrackedfiles red
+    set -g __fish_git_prompt_color_stagedstate green
+    set -g __fish_git_prompt_color_stashstate blue
   '';
 }
