@@ -20,6 +20,8 @@
     inkscape
     kdeApplications.kdenlive
     ardour
+    prusa-slicer
+    blender
     thunderbird
     audacity
     element-desktop
