@@ -6,7 +6,7 @@
 
 {
 
-  boot.plymouth.enable = true;
+  boot.plymouth.enable = false;
 
   # The time zone I live in is the one all my giraffical computers will use
   time.timeZone = "America/Denver";
