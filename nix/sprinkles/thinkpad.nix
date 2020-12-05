@@ -6,8 +6,9 @@
   ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.optimus_prime = {
-    enable = true;
+  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.prime = {
+    sync.enable = true;
     nvidiaBusId = "PCI:1:0:0";
     intelBusId = "PCI:0:2:0";
   };
