@@ -11,5 +11,9 @@
       ff = "pull --ff-only";
       graph = "log --graph --pretty=full";
     };
+
+    extraConfig = {
+      merge.conflictStyle = "diff3";
+    };
   };
 }
