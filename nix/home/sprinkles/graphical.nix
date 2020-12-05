@@ -34,7 +34,7 @@
     spectacle
     latte-dock
     amarok
-    # k3b  # Dependency 'qtwebkit' currently marked as broken
+    k3b
     ark
     vlc
     libreoffice-fresh

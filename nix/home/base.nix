@@ -4,9 +4,6 @@
 
 { pkgs, ... }: {
 
-  # https://github.com/nix-community/home-manager/issues/22
-  manual.manpages.enable = false;
-
   imports = [
     ./fish.nix
     ./emacs.nix
