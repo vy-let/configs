@@ -22,7 +22,7 @@
       rainbow-delimiters
       anzu
       winum
-      adaptive-wrap
+      # adaptive-wrap # Uncomment this later when elpa is back up
 
       helm
       projectile
