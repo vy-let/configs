@@ -16,6 +16,8 @@
   services.xserver.wacom.enable = true;
   hardware.trackpoint = {
     enable = true;
+    speed = 225;
+    sensitivity = 200;
     emulateWheel = true;
   };
 

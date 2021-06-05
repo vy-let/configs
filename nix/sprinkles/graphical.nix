@@ -33,11 +33,12 @@
 
     # system utilities
     borgbackup
+    restic
 
     # extra KDE stuff
-    kdeFrameworks.kdesu
-    kdeApplications.dolphin-plugins
-    partition-manager
+    libsForQt5.kdesu
+    libsForQt5.dolphin-plugins
+    # partition-manager
 
     # dbus
     libdbusmenu
@@ -64,8 +65,10 @@
 
   services.xserver.libinput = {
     enable = true;
-    naturalScrolling = true;
-    tapping = false;
+    touchpad = {
+      naturalScrolling = true;
+      tapping = false;
+    };
   };
 
   # Praaaanting

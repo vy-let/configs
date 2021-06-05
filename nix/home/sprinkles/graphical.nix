@@ -18,15 +18,18 @@
     # Applications
     krita
     inkscape
-    kdeApplications.kdenlive
+    kdenlive
     ardour
     blender
+    freecad
+    openscad
     prusa-slicer
     cura
     thunderbird
     audacity
     element-desktop
     xournal
+    zoom-us
 
     # System extras
     nextcloud-client

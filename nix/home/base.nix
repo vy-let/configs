@@ -21,6 +21,7 @@
     sshfs
     httpie
     wget
+    s3cmd
     lsof
     psmisc
     pcre2

@@ -9,7 +9,6 @@
 
   services.samba = {
     enable = true;
-    syncPasswordsByPam = true;
 
     # This adds to the [global] section:
     extraConfig = ''
