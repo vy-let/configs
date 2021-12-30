@@ -68,6 +68,7 @@
     touchpad = {
       naturalScrolling = true;
       tapping = false;
+      clickMethod = "clickfinger";
     };
   };
 
