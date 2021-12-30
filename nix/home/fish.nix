@@ -14,6 +14,8 @@
       ",,," = "cd ../../..";
       ",,,," = "cd ../../../..";
 
+      nc = "sudo nixos-container";
+
       dc = "docker-compose";
       dex = "docker-compose exec";
 
