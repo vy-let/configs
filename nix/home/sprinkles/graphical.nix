@@ -20,6 +20,7 @@
     inkscape
     kdenlive
     ardour
+    lmms
     blender
     freecad
     openscad
@@ -30,6 +31,7 @@
     element-desktop
     xournal
     zoom-us
+    authy
 
     # System extras
     nextcloud-client
