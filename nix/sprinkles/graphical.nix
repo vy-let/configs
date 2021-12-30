@@ -13,7 +13,7 @@
 
   # Desktop environment
   services.xserver.enable = true;
-  services.xserver.displayManager.defaultSession = "plasma5";
+  services.xserver.displayManager.defaultSession = "plasma";
   services.xserver.desktopManager.plasma5.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.displayManager.autoLogin = {
@@ -53,6 +53,12 @@
 
   ];
 
+
+
+  # Authy relies on an insecure version of Electron, hooray.
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-9.4.4"
+  ];
 
 
   # Commonly-attached hardware:
