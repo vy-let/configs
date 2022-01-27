@@ -13,7 +13,7 @@
 ;;       user-mail-address "idunno@invalid")
 
 (setq doom-theme 'doom-tomorrow-night
-      doom-font "Hasklig-9"
+      doom-font "Hasklig-12"
       doom-variable-pitch-font "Input Sans")
 
 (setq org-directory "~/Documents/")
@@ -49,7 +49,7 @@
    ("M-Z" . avy-goto-end-of-line))
 
   :config
-  (setq avy-keys '(?t ?e ?n ?o ?s ?a ?h ?u  ?d ?i  ?m ?p  ?c ?r ?l  ?q)
+  (setq avy-keys '(?t ?e ?n ?o ?s ?a ?h ?u  ?d ?i  ?m ?p  ?c ?r ?l)
         avy-all-windows nil)
 
   (set-face-attribute 'avy-lead-face nil
@@ -69,10 +69,21 @@
 
 
 ;; Disable annoying, arbitrary code style annotations
-(setq-hook! lsp
-  lsp-diagnostics-provider :none
-  lsp-ui-sideline-show-diagnostics nil
-  lsp-modeline-diagnostics-enable nil)
+(use-package! lsp-mode
+  :commands lsp-install-server  ; repeat from module to avoid eager-loading
+  :config
+  (setq lsp-diagnostics-provider :none
+        lsp-ui-sideline-enable nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-modeline-diagnostics-enable nil
+        lsp-signature-render-documentation nil
+        lsp-enable-symbol-highlighting nil
+        lsp-headerline-breadcrumb-enable nil))
+
+
+
+(use-package! yaml-mode
+  :mode "\\.ya?ml\\.sample\\'")
 
 
 
@@ -138,6 +149,9 @@
 ;; M-o is chosen as a counterpart to C-o, except that it leaves the
 ;; current line alone and leaves the cursor where it is.
 (global-set-key (kbd "M-o") 'insert-line-above)
+
+;; Standard Mac-like command-T switch to file
+(global-set-key (kbd "s-t") 'projectile-find-file)
 
 ;; A version of kill-word (from simple.el) that doesn't save to the
 ;; kill ring.
