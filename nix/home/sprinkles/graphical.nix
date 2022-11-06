@@ -30,7 +30,6 @@
     audacity
     element-desktop
     xournal
-    zoom-us
     authy
 
     # System extras
@@ -48,6 +47,13 @@
     # Utilities
     pciutils
     qt5.qttools
+    handbrake
+    dvdbackup dvdauthor
+
+    # Libraries for reading optical media
+    libcdio
+    libdvdread libdvdcss libdvdnav
+    libbluray libaacs
 
     # Optional depenencies of kdenlive:
     ffmpeg-full

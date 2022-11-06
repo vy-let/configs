@@ -9,7 +9,7 @@
   boot.plymouth.enable = true;
 
   # The time zone I live in is the one all my giraffical computers will use
-  time.timeZone = "America/Denver";
+  time.timeZone = "America/Los_Angeles";
 
   # Desktop environment
   services.xserver.enable = true;

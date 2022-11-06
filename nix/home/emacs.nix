@@ -24,5 +24,7 @@
 
     # LSP dependencies
     rubyPackages.solargraph
+    nodejs
+    nodePackages.npm
   ];
 }

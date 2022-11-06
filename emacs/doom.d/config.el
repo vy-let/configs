@@ -13,7 +13,8 @@
 ;;       user-mail-address "idunno@invalid")
 
 (setq doom-theme 'doom-tomorrow-night
-      doom-font "Hasklig-12"
+      doom-font (if (eq system-type 'darwin) "Hasklig-12"
+                  "Hasklig-9")
       doom-variable-pitch-font "Input Sans")
 
 (setq org-directory "~/Documents/")
