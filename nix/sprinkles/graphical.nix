@@ -51,7 +51,13 @@
     # something something utilities for samba mounts something
     cifs-utils
 
+    # Flipper Zero
+    qFlipper  # see also udev packages
+
   ];
+
+
+  services.udev.packages = [ pkgs.qFlipper ];
 
 
 
