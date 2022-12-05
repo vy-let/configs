@@ -42,7 +42,7 @@
 
     # dbus
     libdbusmenu
-    libdbusmenu_qt
+    libsForQt5.libdbusmenu
 
     # audio
     libcdio
