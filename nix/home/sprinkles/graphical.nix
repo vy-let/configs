@@ -37,7 +37,6 @@
     okular
     gwenview
     spectacle
-    latte-dock
     amarok
     # k3b  # Dependency 'qtwebkit' currently marked as broken
     ark
