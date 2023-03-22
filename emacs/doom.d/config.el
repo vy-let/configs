@@ -14,7 +14,10 @@
 
 (setq doom-theme 'doom-tomorrow-night
       doom-font "Hasklig-12"
-      doom-variable-pitch-font "Input Sans")
+      doom-variable-pitch-font "Input Sans"
+      confirm-kill-emacs nil
+      auto-insert nil ;; don't autofill template into files
+      )
 
 (setq org-directory "~/Documents/")
 
@@ -74,13 +77,26 @@
   :config
   (setq lsp-diagnostics-provider :none
         lsp-ui-sideline-enable nil
+        lsp-enable-snippet nil
         lsp-modeline-diagnostics-enable nil
         lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil
         lsp-enable-symbol-highlighting nil
         lsp-headerline-breadcrumb-enable nil))
 
+(use-package! company
+  :hook (prog-mode . company-mode)
+  :init (setq company-global-modes nil
+              company-idle-delay 1.0))
 
+
+
+(use-package! web-mode
+  :config
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        typescript-indent-level 2))
 
 (use-package! yaml-mode
   :mode "\\.ya?ml\\.sample\\'")
