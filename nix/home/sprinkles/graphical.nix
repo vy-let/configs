@@ -31,6 +31,7 @@
     element-desktop
     xournal
     authy
+    signal-desktop
 
     # System extras
     nextcloud-client
