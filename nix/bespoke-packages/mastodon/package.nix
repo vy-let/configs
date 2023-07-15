@@ -1,26 +1,18 @@
 with import <nixpkgs> {};
 let 
   pname = "glitch-soc";
-  version = "4.0.2";
+  version = import ./version.nix;
   ruby3 = pkgs.ruby_3_0;
-  srcOverride = pkgs.fetchFromGitHub {
-    owner = "glitch-soc";
-    repo = "mastodon";
-    rev = "f233b5ed251bd5efd702e664b48054dbbc2ab4c6";
-    sha256 = "0kb6b5h33h7kinxkcnzncga3y47yqq5ii27kwwpy9bian5jv1n6v";
-  };
-  # srcOverride = null;
   dependenciesDir = ./.;
+
 in stdenv.mkDerivation rec {
   inherit pname version;
 
-  # Using overrideAttrs on src does not build the gems and modules with the overridden src.
-  # Putting the callPackage up in the arguments list also does not work.
-  src = if srcOverride != null then srcOverride else callPackage ./source.nix {};
+  src = callPackage ./source.nix {};
 
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
-    sha256 = "0ybs1fd5gvcz3pwlp5g68fc79xccp5vf04ra8aqc8il82cj42akd";
+    sha256 = "sha256-bc61bxJps7NKXdUxdRVX/4MqT83x4EpemNwHwFxmrSQ=";
   };
 
   mastodon-gems = bundlerEnv {

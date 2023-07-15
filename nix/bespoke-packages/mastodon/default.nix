@@ -45,7 +45,7 @@ rec {
 
 			extraConfig = {
 				AUTHORIZED_FETCH = "true";
-				BIND = self.internalV4;
+				# BIND = self.internalV4;
 				SINGLE_USER_MODE = "false";
 				DEFAULT_LOCALE = "en";
 
@@ -53,8 +53,7 @@ rec {
 
 				SMTP_SSL = "true";
 
-				# TODO: Don't?
-				RAILS_SERVE_STATIC_FILES = "true";
+				RAILS_SERVE_STATIC_FILES = "false";
 			};
 		};
 
