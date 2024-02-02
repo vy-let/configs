@@ -99,7 +99,7 @@
   users.users.mistress.extraGroups = [ "audio" "cdrom" "networkmanager" ];
 
   networking.networkmanager.enable = true;
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
+  programs.firefox.nativeMessagingHosts.packages = [pkgs.plasma-browser-integration];
   virtualisation.docker.enableOnBoot = false;
 
 }
