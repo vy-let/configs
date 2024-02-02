@@ -1,5 +1,22 @@
+# Note this does not get picked up by NixOS machines.
+
 set PATH $HOME/bin $PATH
-set -gx EDITOR 'emacsclient -t'
+
+# This is needed (for now) to make rapture work
+set -gx SHELL (which fish)
+
+set -gx EDITOR emacs
+
+
+# Init Integrations
+
+# iTerm Shell Integration
+test -e ~/.iterm2_shell_integration.fish ; and source ~/.iterm2_shell_integration.fish
+
+# Rapture
+command -q rapture; and eval ( command rapture shell-init )
+
+
 
 function fish_prompt
     set last_status $status
@@ -57,11 +74,34 @@ function fromto
     git diff --no-index $argv
 end
 
-function regrep
-    egrep -nr --color $argv
+function goto
+    cd $argv
+    ll
 end
 
+function regrep
+  if type -q pcre2grep
+    pcre2grep -nrI --color=always $argv
+  else
+    grep -Ern --color $argv
+  end
+end
 
+function ,
+    cd ..
+end
+
+function ,,
+    cd ../..
+end
+
+function ,,,
+    cd ../../..
+end
+
+function les
+    less -R $argv
+end
 
 
 
@@ -72,6 +112,10 @@ end
 
 function dex
     docker-compose exec $argv
+end
+
+function peep
+    docker-compose logs -f --tail=50 $argv
 end
 
 
