@@ -79,9 +79,8 @@
         lsp-ui-sideline-enable nil
         lsp-enable-snippet nil
         lsp-modeline-diagnostics-enable nil
-        lsp-modeline-diagnostics-enable nil
         lsp-signature-render-documentation nil
-        lsp-enable-symbol-highlighting nil
+        ;lsp-enable-symbol-highlighting nil
         lsp-headerline-breadcrumb-enable nil))
 
 (use-package! company
