@@ -653,16 +653,7 @@ in {
     };
 
     systemd.services.mastodon-init-db = lib.mkIf cfg.automaticMigrations {
-      script = lib.optionalString (!databaseActuallyCreateLocally) ''
-        umask 077
-
-        export PGPASSFILE
-        PGPASSFILE=$(mktemp)
-        cat > $PGPASSFILE <<EOF
-        ${cfg.database.host}:${toString cfg.database.port}:${cfg.database.name}:${cfg.database.user}:$(cat ${cfg.database.passwordFile})
-        EOF
-
-      '' + ''
+      script = ''
         if [ `psql ${cfg.database.name} -c \
                 "select count(*) from pg_class c \
                 join pg_namespace s on s.oid = c.relnamespace \
@@ -673,9 +664,6 @@ in {
         else
           rails db:migrate
         fi
-      '' +  lib.optionalString (!databaseActuallyCreateLocally) ''
-        rm $PGPASSFILE
-        unset PGPASSFILE
       '';
       path = [ cfg.package pkgs.postgresql ];
       environment = env // lib.optionalAttrs (!databaseActuallyCreateLocally) {
