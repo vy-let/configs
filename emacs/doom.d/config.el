@@ -13,10 +13,11 @@
 ;;       user-mail-address "idunno@invalid")
 
 (setq doom-theme 'doom-tomorrow-night
-      doom-font "Hasklig-12"
+      doom-font (if (eq system-type 'darwin) "Hasklig-12"
+                  "Hasklig-9")
       doom-variable-pitch-font "Input Sans"
-      confirm-kill-emacs nil
       auto-insert nil ;; don't autofill template into files
+      confirm-kill-emacs nil
       )
 
 (setq org-directory "~/Documents/")

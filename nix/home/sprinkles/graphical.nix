@@ -30,15 +30,14 @@
     audacity
     element-desktop
     xournal
-    zoom-us
     authy
+    signal-desktop
 
     # System extras
     nextcloud-client
     okular
     gwenview
     spectacle
-    latte-dock
     amarok
     # k3b  # Dependency 'qtwebkit' currently marked as broken
     ark
@@ -48,6 +47,13 @@
     # Utilities
     pciutils
     qt5.qttools
+    handbrake
+    dvdbackup dvdauthor
+
+    # Libraries for reading optical media
+    libcdio
+    libdvdread libdvdcss libdvdnav
+    libbluray libaacs
 
     # Optional depenencies of kdenlive:
     ffmpeg-full

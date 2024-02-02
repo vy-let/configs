@@ -9,7 +9,7 @@
   boot.plymouth.enable = true;
 
   # The time zone I live in is the one all my giraffical computers will use
-  time.timeZone = "America/Denver";
+  time.timeZone = "America/Los_Angeles";
 
   # Desktop environment
   services.xserver.enable = true;
@@ -42,7 +42,7 @@
 
     # dbus
     libdbusmenu
-    libdbusmenu_qt
+    libsForQt5.libdbusmenu
 
     # audio
     libcdio
@@ -51,7 +51,13 @@
     # something something utilities for samba mounts something
     cifs-utils
 
+    # Flipper Zero
+    qFlipper  # see also udev packages
+
   ];
+
+
+  services.udev.packages = [ pkgs.qFlipper ];
 
 
 
