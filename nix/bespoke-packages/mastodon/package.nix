@@ -2,7 +2,7 @@ with import <nixpkgs> {};
 let 
   pname = "glitch-soc";
   version = import ./version.nix;
-  ruby3 = pkgs.ruby_3_0;
+  ruby3 = pkgs.ruby;
   dependenciesDir = ./.;
 
 in stdenv.mkDerivation rec {
