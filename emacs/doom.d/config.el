@@ -45,6 +45,10 @@
 
 
 
+(after! magit
+  (setq git-commit-style-convention-checks nil))
+
+
 (use-package! avy
   :bind
   (("C-t" . avy-goto-subword-0)
