@@ -1,9 +1,6 @@
 # Note this does not get picked up by NixOS machines.
 
-set PATH $HOME/bin $PATH
-
-# This is needed (for now) to make rapture work
-set -gx SHELL (which fish)
+fish_add_path --prepend --move ~/bin
 
 set -gx EDITOR emacs
 
@@ -13,8 +10,8 @@ set -gx EDITOR emacs
 # iTerm Shell Integration
 test -e ~/.iterm2_shell_integration.fish ; and source ~/.iterm2_shell_integration.fish
 
-# Rapture
-command -q rapture; and eval ( command rapture shell-init )
+# Direnv
+command -q direnv; and direnv hook fish | source
 
 
 
@@ -67,7 +64,7 @@ end
 
 
 function em
-    emacsclient -t $argv
+    emacsclient -a emacs -t $argv
 end
 
 function fromto
@@ -80,11 +77,17 @@ function goto
 end
 
 function regrep
-  if type -q pcre2grep
+  if command -q rg
+    rg --pretty --line-buffered $argv | less -RF
+  else if command -q pcre2grep
     pcre2grep -nrI --color=always $argv
   else
     grep -Ern --color $argv
   end
+end
+
+function sesh
+  tmux -CC attach; or tmux -CC
 end
 
 function ,
