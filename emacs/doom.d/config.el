@@ -15,7 +15,6 @@
 (setq doom-theme 'doom-tomorrow-night
       doom-font (if (eq system-type 'darwin) "Hasklig-12"
                   "Hasklig-9")
-      doom-variable-pitch-font "Input Sans"
       auto-insert nil ;; don't autofill template into files
       confirm-kill-emacs nil
       )
