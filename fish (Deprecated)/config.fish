@@ -1,6 +1,15 @@
 # Note this does not get picked up by NixOS machines.
 
-fish_add_path --prepend --move ~/bin
+# There's seemingly a bug(?) where the nix fish init file is not adding the
+# system nix profile to the PATH. Explicitly add it here first, so that the user
+# profile then gets added to the front:
+fish_add_path --prepend --move --global /nix/var/nix/profiles/default/bin
+
+if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+  source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+end
+
+fish_add_path --prepend --move --global ~/bin
 
 set -gx EDITOR emacs
 
