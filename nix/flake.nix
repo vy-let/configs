@@ -40,6 +40,9 @@
             emacs-macport
             ripgrep
             fontconfig
+            # For running JS LSP
+            typescript
+            nodePackages.typescript-language-server
 
           ];
         };
